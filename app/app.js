@@ -17,7 +17,4 @@ app.use(express.urlencoded());
 
 route(app);
 
-//create users
-userController.createUser();
-
 module.exports = app;

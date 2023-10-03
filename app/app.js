@@ -17,6 +17,4 @@ app.use(express.urlencoded());
 
 route(app);
 
-
-
 module.exports = app;

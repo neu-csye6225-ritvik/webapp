@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     points: {
       type: DataTypes.INTEGER
-      
+
     },
     num_of_attempts: {
       type: DataTypes.STRING
@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     assignment_updated: {
       type: DataTypes.STRING
+    },
+    idUser: {
+      type: DataTypes.INTEGER
     }
     // Define other columns here
   },
@@ -33,6 +36,62 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false, // Disable automatic timestamps
     });
 
+  // Define the association with User
+  Assignments.associate = (models) => {
+    Assignments.belongsTo(models.User, {
+      foreignKey: 'UserId',
+      as: 'user',
+    });
+  };
 
   return Assignments;
 };
+
+// const { Model } = require('sequelize');
+// const User = require('./user'); // Import the User model
+
+// module.exports = (sequelize, DataTypes) => {
+//   class Assignments extends Model {
+//     static associate(models) {
+//       Assignments.belongsTo(User, {
+//         foreignKey: 'userId',
+//         as: 'user',
+//       });
+//     }
+//   }
+
+//   Assignments.init(
+//     {
+//       id: {
+//         type: DataTypes.INTEGER,
+//         primaryKey: true,
+//         autoIncrement: true,
+//       },
+//       name: {
+//         type: DataTypes.STRING,
+//       },
+//       points: {
+//         type: DataTypes.INTEGER,
+//       },
+//       num_of_attempts: {
+//         type: DataTypes.STRING,
+//       },
+//       deadline: {
+//         type: DataTypes.STRING,
+//       },
+//       assignment_created: {
+//         type: DataTypes.STRING,
+//       },
+//       assignment_updated: {
+//         type: DataTypes.STRING,
+//       },
+//     },
+//     {
+//       sequelize,
+//       modelName: 'Assignments',
+//       timestamps: false,
+//     }
+//   );
+
+//   return Assignments;
+// };

@@ -1,8 +1,9 @@
 const response = require('express');
 const fs = require('fs');
-const { sequelize } = require('/Users/ritvikparamkusham/Documents/Courses/Cloud Computing/Assignment2/models');
+const { sequelize } = require('../../models');
 const { Sequelize } = require('sequelize');
-const UserModel = require('/Users/ritvikparamkusham/Documents/Courses/Cloud Computing/Assignment2/models/user');
+const UserModel = require("../../models/user");
+
 
 const User = UserModel(sequelize, Sequelize);
 

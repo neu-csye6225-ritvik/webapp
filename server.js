@@ -24,10 +24,6 @@ const Assignment = AssignmentModel(sequelize, Sequelize);
 User.hasMany(Assignment, { foreignKey: 'UserId' });
 Assignment.belongsTo(User, { foreignKey: 'UserId' });
 
-// // Initialize models and associations
-// User.associate({ Assignment }); // Make sure to pass the Assignment model here
-// Assignment.associate({ User }); // Make sure to pass the User model here
-
 
 async function main() {
     await sequelize.authenticate();
@@ -37,7 +33,6 @@ async function main() {
                      userController.createUser()
                     }
                    );
-    // await sequelize.close();
 }
 
 // app.listen(port,() => console.log(`Server is listening at ${port}`));

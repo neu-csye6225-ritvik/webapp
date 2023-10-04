@@ -21,11 +21,23 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING
     },
+    // account_created: {
+    //   type: DataTypes.STRING
+    // },
+    // account_updated: {
+    //   type: DataTypes.STRING
+    // }
     account_created: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: false,
+      readOnly: true
     },
     account_updated: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: false,
+      readOnly: true
     }
     // Define other columns here
   }, {

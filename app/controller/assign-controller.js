@@ -97,10 +97,10 @@ assignController.createAssignments = async (req, res) => {
 
   try {
     // Check if points are within the range [1, 10]
-    if (points < 1 || points > 10) {
-      return validation.badRequest(res,'Points must be between 1 and 10');
-      // return res.status(400).json({ error: 'Points must be between 1 and 10' });
-    }
+    // if (points < 1 || points > 10) {
+    //   return validation.badRequest(res,'Points must be between 1 and 10');
+    //   // return res.status(400).json({ error: 'Points must be between 1 and 10' });
+    // }
 
     console.log("User ID", req.authenticatedUser.id);
 
@@ -140,7 +140,7 @@ assignController.updateAssignment = async (req, res) => {
     }
 
     // Check if the user is authorized to update the assignment  
-    if (assignment.userId !== req.authenticatedUser.id) {
+    if (assignment.idUser !== req.authenticatedUser.id) {
       return res.status(403).json({ error: 'Unauthorized to update this assignment' });
     }
 
@@ -149,14 +149,14 @@ assignController.updateAssignment = async (req, res) => {
     assignment.points = points;
     assignment.num_of_attempts = num_of_attempts;
     assignment.deadline = deadline;
-    assignment_updated: new Date().toISOString(),
+    assignment.assignment_updated = new Date().toISOString();
 
       // Save the updated assignment
       await assignment.save();
 
-    res.status(200).json(assignment);
+      validation.ok(res,"ok",assignment)
   } catch (error) {
-    res.status(500).json({ error: 'Error updating assignment' });
+    validation.badRequest(res,'Failed to create assignment')
   }
 };
 

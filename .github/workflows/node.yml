@@ -33,7 +33,7 @@ jobs:
           touch .env
 
           echo PGDATABASE=webapp >> .env
-
+ 
           echo PGUSER=postgres >> .env
 
           echo PGPASSWORD=password >> .env

@@ -6,7 +6,8 @@ const { Sequelize } = require('sequelize');
 const AssignmentModel = require('../../models/assignment.js');
 const UserModel = require('../../models/user.js');
 const bcrypt = require('bcrypt');
-const validation = require('../service/validation')
+const validation = require('../service/validation');
+const user = require('../../models/user.js');
 
 
 const assignController = {};
@@ -42,7 +43,7 @@ assignController.getAssignments = async (req, res) => {
   try {
     // const assignments = await Assignments.findAll();
     const assignments = await Assignments.findAll({
-      where: { idUser: req.authenticatedUser.id } // Filter by userId
+      // where: { idUser: req.authenticatedUser.id } // Filter by userId
     });
     validation.ok(res,"ok",assignments)
     // res.status(200).json(assignments);
@@ -62,11 +63,11 @@ assignController.getAssignment = async (req, res) => {
       // return res.status(404).json({ error: 'Assignment not found' });
     }
     // Check if the user is authorized to update the assignment  
-    if (assignment.idUser !== req.authenticatedUser.id) {
-     return validation.forbidden(res,'Unauthorized to access this assignment')
-      // return res.status(403).json({ error: 'Unauthorized to access this assignment' });
+    // if (assignment.idUser !== req.authenticatedUser.id) {
+    //  return validation.forbidden(res,'Unauthorized to access this assignment')
+    //   // return res.status(403).json({ error: 'Unauthorized to access this assignment' });
 
-    }
+    // }
 
     validation.ok(res,"ok",assignment)
     // res.status(200).json(assignment);
@@ -93,16 +94,16 @@ assignController.createAssignments = async (req, res) => {
       return;
     }
 
-  const userForgein = await User.findByPk(req.authenticatedUser.id);
 
   try {
     // Check if points are within the range [1, 10]
-    if (points < 1 || points > 10) {
-      return validation.badRequest(res,'Points must be between 1 and 10');
-      // return res.status(400).json({ error: 'Points must be between 1 and 10' });
-    }
+    // if (points < 1 || points > 10) {
+    //   return validation.badRequest(res,'Points must be between 1 and 10');
+    //   // return res.status(400).json({ error: 'Points must be between 1 and 10' });
+    // }
 
     console.log("User ID", req.authenticatedUser.id);
+
     const newAssignment = await Assignments.create({
       name,
       points,
@@ -110,7 +111,9 @@ assignController.createAssignments = async (req, res) => {
       deadline,
       assignment_created: new Date().toISOString(),
       assignment_updated: new Date().toISOString(),
-      idUser: req.authenticatedUser.id
+      idUser: req.authenticatedUser.id,
+      user_id: req.authenticatedUser.id
+
     });
 
     validation.created(res,"Assignment created",newAssignment)
@@ -137,7 +140,7 @@ assignController.updateAssignment = async (req, res) => {
     }
 
     // Check if the user is authorized to update the assignment  
-    if (assignment.userId !== req.authenticatedUser.id) {
+    if (assignment.idUser !== req.authenticatedUser.id) {
       return res.status(403).json({ error: 'Unauthorized to update this assignment' });
     }
 
@@ -146,14 +149,14 @@ assignController.updateAssignment = async (req, res) => {
     assignment.points = points;
     assignment.num_of_attempts = num_of_attempts;
     assignment.deadline = deadline;
-    assignment_updated: new Date().toISOString(),
+    assignment.assignment_updated = new Date().toISOString();
 
       // Save the updated assignment
       await assignment.save();
 
-    res.status(200).json(assignment);
+      validation.ok(res,"ok",assignment)
   } catch (error) {
-    res.status(500).json({ error: 'Error updating assignment' });
+    validation.badRequest(res,'Failed to create assignment')
   }
 };
 

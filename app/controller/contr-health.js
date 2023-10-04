@@ -1,7 +1,7 @@
 
 const response  = require('express');
 
-const {sequelize} = require('/Users/ritvikparamkusham/Documents/Courses/Cloud Computing/Assignment2/models');
+const {sequelize} = require('../../models');
 
 
 var healthController = {}

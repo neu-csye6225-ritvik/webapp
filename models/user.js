@@ -21,11 +21,23 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING
     },
+    // account_created: {
+    //   type: DataTypes.STRING
+    // },
+    // account_updated: {
+    //   type: DataTypes.STRING
+    // }
     account_created: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: false,
+      readOnly: true
     },
     account_updated: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: false,
+      readOnly: true
     }
     // Define other columns here
   }, {
@@ -40,67 +52,9 @@ module.exports = (sequelize, DataTypes) => {
 
   // Define the association with Assignments
   User.associate = (models) => {
-    User.hasMany(models.Assignments, {
-      foreignKey: 'UserId',
-      as: 'assignments',
-    });
+    User.hasMany(models.Assignments,
+      { foreignKey: 'user_id' });
   };
 
   return User;
 };
-
-// const { Model } = require('sequelize');
-// const bcrypt = require('bcrypt');
-// const Assignments = require('./assignment'); // Import the User model
-
-// module.exports = (sequelize, DataTypes) => {
-//   class User extends Model {
-//     static associate(models) {
-//       User.hasMany(Assignments, {
-//         foreignKey: 'userId',
-//         as: 'assignments',
-//       });
-//     }
-//   }
-
-//   User.init(
-//     {
-//       id: {
-//         type: DataTypes.INTEGER,
-//         primaryKey: true,
-//         autoIncrement: true,
-//       },
-//       first_name: {
-//         type: DataTypes.STRING,
-//       },
-//       last_name: {
-//         type: DataTypes.STRING,
-//       },
-//       email: {
-//         type: DataTypes.STRING,
-//       },
-//       password: {
-//         type: DataTypes.STRING,
-//       },
-//       account_created: {
-//         type: DataTypes.STRING,
-//       },
-//       account_updated: {
-//         type: DataTypes.STRING,
-//       },
-//     },
-//     {
-//       sequelize,
-//       modelName: 'User',
-//       timestamps: false,
-//     }
-//   );
-
-//   User.beforeCreate((user) => {
-//     if (user.password) {
-//       user.password = bcrypt.hashSync(user.password, 12);
-//     }
-//   });
-
-//   return User;
-// };

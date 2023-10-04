@@ -31,9 +31,9 @@ userController.createUser = async function () {
           first_name,
           last_name,
           email,
-          password,
-          account_created: new Date().toISOString(),
-          account_updated: new Date().toISOString(),
+          password
+          // account_created: new Date().toISOString(),
+          // account_updated: new Date().toISOString(),
         });
         console.log(`User with email ${email} created.`);
       } else {

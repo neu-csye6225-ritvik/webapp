@@ -16,18 +16,13 @@ const userController = require('./app/controller/user-controller.js');
 
 const port = process.env.APP_PORT;
 
-
 const User = UserModel(sequelize,Sequelize);
 const Assignment = AssignmentModel(sequelize, Sequelize);
 
+User.hasMany(Assignment, { foreignKey: 'user_id' });
+Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 
-User.hasMany(Assignment, { foreignKey: 'UserId' });
-Assignment.belongsTo(User, { foreignKey: 'UserId' });
-
-// // Initialize models and associations
-// User.associate({ Assignment }); // Make sure to pass the Assignment model here
-// Assignment.associate({ User }); // Make sure to pass the User model here
-
+// User.hasMany(Assignment,{foreignKey:{name :"userId"},onDelete:"CASCADE",field:"userId",allowNull:false})
 
 async function main() {
     await sequelize.authenticate();
@@ -37,10 +32,7 @@ async function main() {
                      userController.createUser()
                     }
                    );
-    // await sequelize.close();
 }
-
-// app.listen(port,() => console.log(`Server is listening at ${port}`));
 main();
 
 app.listen(port,async()=>{

@@ -12,6 +12,28 @@ const validateFields = (obj, expectedFields) => {
   return { missingFields, extraFields };
 };
 
+const rejectPayload = (request, response,next) => {
+  //check for request body and query parameters
+  if( (request.body && Object.keys(request.body).length > 0) ||  (request.query && Object.keys(request.query).length > 0) ){
+    response.status(400).json("Check Payload");
+  } else{
+    next();
+  }
+};
+
+const queryParams = (request, response,next) => {
+  //check for request body and query parameters
+  if (request.query && Object.keys(request.query).length > 0){
+    response.status(400).json("Query parameters not allowed");
+  } else{
+    next();
+  }
+};
+
+const patchmethod = (request,response) => {
+  response.status(405).json("Method not allowed");
+}
+
 // Function to send a 401 - Unauthorized response
 const unauthorized = (res, message) => {
     res.status(401).json({ error: message });
@@ -60,6 +82,9 @@ const unauthorized = (res, message) => {
     noContent,
     notFound,
     serverError,
-    validateFields
+    validateFields,
+    rejectPayload,
+    patchmethod,
+    queryParams
   };
   

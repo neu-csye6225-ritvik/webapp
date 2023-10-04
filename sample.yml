@@ -9,11 +9,11 @@ jobs:
       postgres:
         image: 'postgres:latest'
         env:
-          POSTGRES_DB: '${{ secrets.PGDATABASE }}'
-          POSTGRES_USER: '${{ secrets.PGUSER }}'
-          POSTGRES_PASSWORD: '${{ secrets.PGPASSWORD }}'
-          POSTGRES_PORT: '${{ secrets.PGPORT }}'
-          POSTGRES_HOST: '${{ secrets.PGHOST }}'
+          POSTGRES_DB: 'webapp'
+          POSTGRES_USER: 'postgres'
+          POSTGRES_PASSWORD: 'password'
+          POSTGRES_PORT: '5432'
+          POSTGRES_HOST: 'localhost'
         ports:
           - '5432:5432'
         options: >-

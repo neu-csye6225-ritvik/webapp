@@ -1,0 +1,31 @@
+'on':
+  pull_request:
+    branches:
+      - main
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: 'postgres:latest'
+        env:
+          POSTGRES_DB: 'webapp'
+          POSTGRES_USER: 'postgres'
+          POSTGRES_PASSWORD: 'password'
+          POSTGRES_PORT: '5432'
+          POSTGRES_HOST: 'localhost'
+        ports:
+          - '5432:5432'
+        options: >-
+          --health-cmd pg_isready --health-interval 10s --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 20.6
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.6
+          cache: 'npm'
+      # - run: npm ci
+      # - run: npm run build --if-present
+      - run: node test

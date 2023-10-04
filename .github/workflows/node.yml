@@ -14,7 +14,7 @@ jobs:
           POSTGRES_PASSWORD: 'password'
           POSTGRES_PORT: '5432'
           POSTGRES_HOST: 'localhost'
-          POSTGRES_DIALECT: 'postgres'
+          DB_DIALECT: 'postgres'
         ports:
           - '5432:5432'
         options: >-
@@ -27,7 +27,29 @@ jobs:
         with:
           node-version: 20.6
           cache: 'npm'
-          
+
+      - name:  env file
+        run: |
+          touch .env
+
+          echo PGDATABASE=webapp >> .env
+
+          echo PGUSER=postgres >> .env
+
+          echo PGPASSWORD=password >> .env
+
+          echo PGPORT=5432 >> .env
+
+          echo PGHOST=localhost >> .env
+          echo DB_DIALECT=postgres
+
+          echo "cat .env"
+
+          cat .env
+
+          echo "ls -a ."
+
+          ls -a .
       - name: Install dependencies
         run: npm install
 

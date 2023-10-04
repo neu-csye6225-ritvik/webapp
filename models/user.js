@@ -38,13 +38,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  // // Define the association with Assignments
-  // User.associate = (models) => {
-  //   User.hasMany(models.Assignments, {
-  //     foreignKey: 'UserId',
-  //     as: 'assignments',
-  //   });
-  // };
+  // Define the association with Assignments
+  User.associate = (models) => {
+    User.hasMany(models.Assignments,
+      { foreignKey: 'user_id' });
+  };
 
   return User;
 };

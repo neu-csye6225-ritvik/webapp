@@ -112,7 +112,7 @@ assignController.createAssignments = async (req, res) => {
       assignment_created: new Date().toISOString(),
       assignment_updated: new Date().toISOString(),
       idUser: req.authenticatedUser.id,
-      userId: req.authenticatedUser.id
+      user_id: req.authenticatedUser.id
 
     });
 

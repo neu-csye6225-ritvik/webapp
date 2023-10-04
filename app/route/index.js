@@ -9,6 +9,9 @@ const route = (app) => {
     app.use('/v1/assignments',assignRouter)
 
     app.all('*', (req, res) => {
+        if(req.method === 'PATCH'){
+            res.status(405).json();
+        }
         res.status(404).json();
     });
 }

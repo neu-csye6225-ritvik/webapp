@@ -45,11 +45,13 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   // Define the association with User
-  // Assignments.associate = (models) => {
-  //   Assignments.belongsTo(models.User, {
-  //     foreignKey: 'userId'
-  //   });
-  // };
+  Assignments.associate = (models) => {
+    Assignments.belongsTo(models.User,
+      {
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE'
+      });
+  };
 
   return Assignments;
 };

@@ -41,7 +41,7 @@ jobs:
           echo PGPORT=5432 >> .env
 
           echo PGHOST=localhost >> .env
-          echo DB_DIALECT=postgres
+          echo DB_DIALECT=postgres >> .env
 
           echo "cat .env"
 

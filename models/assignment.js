@@ -15,10 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     points: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       validate: {
         max: {
           args: [10],
@@ -35,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     num_of_attempts: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       validate: {
         max: {
           args: [100],
@@ -50,7 +53,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     deadline: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false
     },
     assignment_created: {
       type: DataTypes.DATE,

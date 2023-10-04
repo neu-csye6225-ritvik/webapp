@@ -6,7 +6,8 @@ const { Sequelize } = require('sequelize');
 const AssignmentModel = require('../../models/assignment.js');
 const UserModel = require('../../models/user.js');
 const bcrypt = require('bcrypt');
-const validation = require('../service/validation')
+const validation = require('../service/validation');
+const user = require('../../models/user.js');
 
 
 const assignController = {};
@@ -42,7 +43,7 @@ assignController.getAssignments = async (req, res) => {
   try {
     // const assignments = await Assignments.findAll();
     const assignments = await Assignments.findAll({
-      where: { idUser: req.authenticatedUser.id } // Filter by userId
+      // where: { idUser: req.authenticatedUser.id } // Filter by userId
     });
     validation.ok(res,"ok",assignments)
     // res.status(200).json(assignments);
@@ -62,11 +63,11 @@ assignController.getAssignment = async (req, res) => {
       // return res.status(404).json({ error: 'Assignment not found' });
     }
     // Check if the user is authorized to update the assignment  
-    if (assignment.idUser !== req.authenticatedUser.id) {
-     return validation.forbidden(res,'Unauthorized to access this assignment')
-      // return res.status(403).json({ error: 'Unauthorized to access this assignment' });
+    // if (assignment.idUser !== req.authenticatedUser.id) {
+    //  return validation.forbidden(res,'Unauthorized to access this assignment')
+    //   // return res.status(403).json({ error: 'Unauthorized to access this assignment' });
 
-    }
+    // }
 
     validation.ok(res,"ok",assignment)
     // res.status(200).json(assignment);
@@ -93,7 +94,6 @@ assignController.createAssignments = async (req, res) => {
       return;
     }
 
-  const userForgein = await User.findByPk(req.authenticatedUser.id);
 
   try {
     // Check if points are within the range [1, 10]
@@ -103,6 +103,7 @@ assignController.createAssignments = async (req, res) => {
     }
 
     console.log("User ID", req.authenticatedUser.id);
+
     const newAssignment = await Assignments.create({
       name,
       points,
@@ -110,7 +111,9 @@ assignController.createAssignments = async (req, res) => {
       deadline,
       assignment_created: new Date().toISOString(),
       assignment_updated: new Date().toISOString(),
-      idUser: req.authenticatedUser.id
+      idUser: req.authenticatedUser.id,
+      userId: req.authenticatedUser.id
+
     });
 
     validation.created(res,"Assignment created",newAssignment)

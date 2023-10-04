@@ -26,23 +26,30 @@ module.exports = (sequelize, DataTypes) => {
     },
     assignment_updated: {
       type: DataTypes.STRING
-    },
+    }
+    ,
     idUser: {
       type: DataTypes.INTEGER
-    }
+    },
     // Define other columns here
+    // userId: {
+    //   type: Sequelize.INTEGER,
+    //   references: {
+    //     model: 'User', // The name of the User model
+    //     key: 'id',      // The name of the primary key in the User model
+    //   },
+    // },
   },
     {
       timestamps: false, // Disable automatic timestamps
     });
 
   // Define the association with User
-  Assignments.associate = (models) => {
-    Assignments.belongsTo(models.User, {
-      foreignKey: 'UserId',
-      as: 'user',
-    });
-  };
+  // Assignments.associate = (models) => {
+  //   Assignments.belongsTo(models.User, {
+  //     foreignKey: 'userId'
+  //   });
+  // };
 
   return Assignments;
 };

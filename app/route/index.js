@@ -8,9 +8,9 @@ const route = (app) => {
 
     app.use('/v1/assignments',assignRouter)
 
-    // app.all('*', (req, res) => {
-    //     res.status(404).json();
-    // });
+    app.all('*', (req, res) => {
+        res.status(404).json();
+    });
 }
 
 module.exports = route;

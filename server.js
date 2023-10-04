@@ -21,9 +21,10 @@ const User = UserModel(sequelize,Sequelize);
 const Assignment = AssignmentModel(sequelize, Sequelize);
 
 
-User.hasMany(Assignment, { foreignKey: 'UserId' });
-Assignment.belongsTo(User, { foreignKey: 'UserId' });
+// User.hasMany(Assignment, { foreignKey: 'userId',  onDelete: "cascade",allowNull:false });
+// Assignment.belongsTo(User, { foreignKey: 'userId' });
 
+User.hasMany(Assignment,{foreignKey:{name :"userId"},onDelete:"CASCADE",field:"userId",allowNull:false})
 
 async function main() {
     await sequelize.authenticate();
@@ -34,8 +35,6 @@ async function main() {
                     }
                    );
 }
-
-// app.listen(port,() => console.log(`Server is listening at ${port}`));
 main();
 
 app.listen(port,async()=>{

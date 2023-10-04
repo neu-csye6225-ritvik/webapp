@@ -3,10 +3,16 @@ const User = require('./user'); // Import the User model
 
 module.exports = (sequelize, DataTypes) => {
   const Assignments = sequelize.define('Assignments', {
+    // id: {
+    //   type: DataTypes.INTEGER,
+    //   primaryKey: true,
+    //   autoIncrement: true
+    // },
     id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true
     },
     name: {
       type: DataTypes.STRING
@@ -47,14 +53,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     assignment_created: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: false,
+      readOnly: true
     },
     assignment_updated: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+      allowNull: false,
+      // readOnly: true
     }
     ,
     idUser: {
-      type: DataTypes.INTEGER
+      type: DataTypes.UUID
     },
     // Define other columns here
     // userId: {

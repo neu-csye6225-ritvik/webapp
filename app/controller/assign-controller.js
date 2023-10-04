@@ -78,7 +78,7 @@ assignController.getAssignment = async (req, res) => {
 
 // Create a new assignment
 assignController.createAssignments = async (req, res) => {
-  const { name, points, num_of_attempts, deadline } = req.body;
+  const { name, points, num_of_attempts, deadline, user_id } = req.body;
 
     // Define the expected fields
     const expectedFields = ['name', 'points', 'num_of_attempts', 'deadline'];

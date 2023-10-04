@@ -19,7 +19,8 @@ const port = process.env.APP_PORT;
 const User = UserModel(sequelize,Sequelize);
 const Assignment = AssignmentModel(sequelize, Sequelize);
 
-User.hasMany(Assignment, { foreignKey: 'user_id' });
+// User.hasMany(Assignment, { foreignKey: 'user_id' });
+
 Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 
 // User.hasMany(Assignment,{foreignKey:{name :"userId"},onDelete:"CASCADE",field:"userId",allowNull:false})

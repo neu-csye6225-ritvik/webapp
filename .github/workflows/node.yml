@@ -50,7 +50,7 @@ jobs:
           echo "ls -a ."
 
           ls -a .
-      - name: Install dependencies
+      - name: Install ALL dependencies
         run: npm install
 
       - name: Run tests

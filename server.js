@@ -20,6 +20,7 @@ const User = UserModel(sequelize,Sequelize);
 const Assignment = AssignmentModel(sequelize, Sequelize);
 
 // User.hasMany(Assignment, { foreignKey: 'user_id' });
+
 Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 
 // User.hasMany(Assignment,{foreignKey:{name :"userId"},onDelete:"CASCADE",field:"userId",allowNull:false})

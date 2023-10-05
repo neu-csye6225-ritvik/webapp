@@ -172,6 +172,7 @@ assignController.updateAssignment = async (req, res) => {
     res.status(204).send(); // No content response
   } catch (error) {
     validation.badRequest(res, 'Failed to create assignment')
+
   }
 };
 

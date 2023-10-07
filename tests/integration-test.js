@@ -5,9 +5,6 @@ var assert = require('assert');
 
 
 describe('Testing our Application', function () {
-    it('Simple assert test', function () {
-        assert.equal(1, 1);
-    });
 
     it('GET /healthz end point of the application', (done) => {
         supertest(app)

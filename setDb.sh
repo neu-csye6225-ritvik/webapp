@@ -27,4 +27,5 @@ echo "Grant privileges"
 GRANT ALL PRIVILEGES ON DATABASE postgres TO webuser;
 
 echo "Grant schema public"
-GRANT ALL ON SCHEMA public TO webuser
+GRANT ALL ON SCHEMA public TO webuser;
+

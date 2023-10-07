@@ -20,7 +20,7 @@ assignController.authenticateUser = async (req, res, next) => {
   const credentials = basicAuth(req);
 
   if (!credentials) {
-    validation.unauthorized(res,'Authentication required')
+    validation.unauthorized(res, 'Authentication required')
     return;
   }
 
@@ -29,7 +29,7 @@ assignController.authenticateUser = async (req, res, next) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user || !bcrypt.compareSync(password, user.password)) {
-    validation.unauthorized(res,'Invalid credentials')
+    validation.unauthorized(res, 'Invalid credentials')
     return;
   }
   // Attach the authenticated user to the request
@@ -45,10 +45,10 @@ assignController.getAssignments = async (req, res) => {
     const assignments = await Assignments.findAll({
       // where: { idUser: req.authenticatedUser.id } // Filter by userId
     });
-    validation.ok(res,"ok",assignments)
+    validation.ok(res, "ok", assignments)
     // res.status(200).json(assignments);
   } catch (error) {
-    validation.serverError(res,'Error fetching assignments')
+    validation.serverError(res, 'Error fetching assignments')
     // res.status(500).json({ error: 'Error fetching assignments' });
   }
 };
@@ -59,7 +59,7 @@ assignController.getAssignment = async (req, res) => {
   try {
     const assignment = await Assignments.findByPk(id);
     if (!assignment) {
-     return validation.notFound(res,'Assignment not found')
+      return validation.notFound(res, 'Assignment not found')
       // return res.status(404).json({ error: 'Assignment not found' });
     }
     // Check if the user is authorized to update the assignment  
@@ -69,10 +69,10 @@ assignController.getAssignment = async (req, res) => {
 
     // }
 
-    validation.ok(res,"ok",assignment)
+    validation.ok(res, "ok", assignment)
     // res.status(200).json(assignment);
   } catch (error) {
-    validation.serverError(res,'Error fetching assignments')
+    validation.serverError(res, 'Error fetching assignments')
   }
 };
 
@@ -80,19 +80,19 @@ assignController.getAssignment = async (req, res) => {
 assignController.createAssignments = async (req, res) => {
   const { name, points, num_of_attempts, deadline, user_id } = req.body;
 
-    // Define the expected fields
-    const expectedFields = ['name', 'points', 'num_of_attempts', 'deadline'];
+  // Define the expected fields
+  const expectedFields = ['name', 'points', 'num_of_attempts', 'deadline'];
 
-    // Validate fields in the request body
-    const { missingFields, extraFields } = validation.validateFields(req.body, expectedFields);
-  
-    if (missingFields.length > 0 || extraFields.length > 0) {
-      validation.badRequest(
-        res,
-        `Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`
-      );
-      return;
-    }
+  // Validate fields in the request body
+  const { missingFields, extraFields } = validation.validateFields(req.body, expectedFields);
+
+  if (missingFields.length > 0 || extraFields.length > 0) {
+    validation.badRequest(
+      res,
+      `Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`
+    );
+    return;
+  }
 
 
   try {
@@ -116,11 +116,11 @@ assignController.createAssignments = async (req, res) => {
 
     });
 
-    validation.created(res,"Assignment created",newAssignment)
+    validation.created(res, "Assignment created", newAssignment)
     // res.status(201).json(newAssignment);
   } catch (error) {
     console.error('Failed to create assignment', error);
-    validation.badRequest(res,'Failed to create assignment')
+    validation.badRequest(res, 'Failed to create assignment')
     // res.status(400).json({ error: 'Failed to create assignment' });
   }
 };
@@ -129,6 +129,19 @@ assignController.createAssignments = async (req, res) => {
 assignController.updateAssignment = async (req, res) => {
   const { id } = req.params;
   const { name, points, num_of_attempts, deadline } = req.body;
+
+  const expectedFields = ['name', 'points', 'num_of_attempts', 'deadline'];
+
+  // Validate fields in the request body
+  const { missingFields, extraFields } = validation.validateFields(req.body, expectedFields);
+
+  if (missingFields.length > 0 || extraFields.length > 0) {
+    validation.badRequest(
+      res,
+      `Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`
+    );
+    return;
+  }
 
   try {
     // Find the assignment by ID
@@ -145,18 +158,21 @@ assignController.updateAssignment = async (req, res) => {
     }
 
     // Update the assignment fields
-    assignment.name = name;
-    assignment.points = points;
-    assignment.num_of_attempts = num_of_attempts;
-    assignment.deadline = deadline;
+    // Update assignment properties based on request body
+    assignment.name = name || assignment.name;
+    assignment.points = points || assignment.points;
+    assignment.num_of_attempts = num_of_attempts || assignment.num_of_attempts;
+    assignment.deadline = deadline || assignment.deadline;
     assignment.assignment_updated = new Date().toISOString();
 
-      // Save the updated assignment
-      await assignment.save();
+    // Save the updated assignment
+    await assignment.save();
 
-      validation.ok(res,"ok",assignment)
+    // validation.ok(res, "ok", assignment)
+    res.status(204).send(); // No content response
   } catch (error) {
-    validation.badRequest(res,'Failed to create assignment')
+    validation.badRequest(res, 'Failed to create assignment')
+
   }
 };
 

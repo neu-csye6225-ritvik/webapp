@@ -21,12 +21,29 @@ jobs:
         sudo mv packer /usr/local/bin/
       shell: bash
 
-    - name: Configure AWS credentials
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'us-east-1'
+
+    - name: Install Packer
       run: |
-        echo "[default]" >> $HOME/.aws/credentials
-        echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $HOME/.aws/credentials
-        echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $HOME/.aws/credentials
+        wget https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip
+        unzip packer_1.7.2_linux_amd64.zip
+        chmod +x packer
+        mv packer /usr/local/bin
       shell: bash
 
+    - name: Run packer init
+      run: packer init aws.debian.pkr.hcl
+    
     - name: Build AMI with Packer
-      run: packer build aws-debian.pkr.hcl
+      id: packer_build
+      run: |
+        ami_id=$(packer build aws-debian.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
+        echo "AMI ID: $ami_id"
+        echo "::set-output name=ami_id::$ami_id"
+      shell: bash
+

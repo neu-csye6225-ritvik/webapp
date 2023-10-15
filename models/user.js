@@ -31,6 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    // account_created: {
+    //   type: DataTypes.STRING
+    // },
+    // account_updated: {
+    //   type: DataTypes.STRING
+    // }
     account_created: {
       type: DataTypes.DATE,
       defaultValue: new Date(),

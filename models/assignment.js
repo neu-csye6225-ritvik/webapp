@@ -97,5 +97,6 @@ module.exports = (sequelize, DataTypes) => {
 
   // Assignments.belongsTo(User, { foreignKey: 'user_id' });
 
+
   return Assignments;
 };

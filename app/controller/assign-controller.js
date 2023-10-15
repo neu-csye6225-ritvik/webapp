@@ -153,6 +153,7 @@ assignController.updateAssignment = async (req, res) => {
     }
 
     // Check if the user is authorized to update the assignment  
+
     if (assignment.user_id !== req.authenticatedUser.id) {
       return res.status(403).json({ error: 'Unauthorized to update this assignment' });
     }

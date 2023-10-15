@@ -9,11 +9,11 @@ jobs:
       postgres:
         image: 'postgres:latest'
         env:
-          POSTGRES_DB: 'webapp'
-          POSTGRES_USER: 'postgres'
-          POSTGRES_PASSWORD: 'password'
-          POSTGRES_PORT: '5432'
-          POSTGRES_HOST: 'localhost'
+          POSTGRES_DB: ${{ secrets.PGDATABASE }}
+          POSTGRES_USER: ${{ secrets.PGUSER }}
+          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD }}
+          POSTGRES_PORT: ${{ secrets.PGPORT }}
+          POSTGRES_HOST: ${{ secrets.PGHOST }}
           DB_DIALECT: 'postgres'
         ports:
           - '5432:5432'
@@ -31,16 +31,16 @@ jobs:
       - name:  env file
         run: |
           touch .env
+          
+          echo PGDATABASE=${{ secrets.PGDATABASE }} >> .env
 
-          echo PGDATABASE=webapp >> .env
- 
-          echo PGUSER=postgres >> .env
+          echo PGUSER=${{ secrets.PGUSER }} >> .env
 
-          echo PGPASSWORD=password >> .env
+          echo PGPASSWORD=${{ secrets.PGPASSWORD }} >> .env
 
-          echo PGPORT=5432 >> .env
+          echo PGPORT=${{ secrets.PGPORT }} >> .env
 
-          echo PGHOST=localhost >> .env
+          echo PGHOST=${{ secrets.PGHOST }} >> .env
           echo DB_DIALECT=postgres >> .env
 
           echo "cat .env"

@@ -37,6 +37,8 @@ jobs:
 
           echo PGHOST=${{ secrets.PGHOST }} >> .env
 
+          echo DB_DIALECT=postgres >> .env
+
           echo "cat .env"
 
           cat .env

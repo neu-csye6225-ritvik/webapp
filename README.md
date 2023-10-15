@@ -64,3 +64,8 @@ run `npm test` : this runs test on integration-test.js
 run `npm test` : this runs test on integration-test.js
 
 
+1.Prerequisites for building and deploying your application locally.
+2.Build and Deploy instructions for the web application
+
+checking github actions
+

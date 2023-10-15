@@ -71,11 +71,11 @@ build {
     destination = "~/webapp.zip"
   }
 
-//   provisioner "shell" {
-//     scripts = [
-//       "./setup.sh",
-//     ]
-//   }
+  //   provisioner "shell" {
+  //     scripts = [
+  //       "./setup.sh",
+  //     ]
+  //   }
 
 
 }

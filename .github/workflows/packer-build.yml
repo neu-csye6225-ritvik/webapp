@@ -46,3 +46,4 @@ jobs:
         echo "AMI ID: $ami_id"
         echo "::set-output name=ami_id::$ami_id"
       shell: bash
+

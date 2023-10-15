@@ -26,7 +26,7 @@ Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 
 async function main() {
     await sequelize.authenticate();
-    await sequelize.sync({alter:true})
+    await sequelize.sync({force:true})
                    .then(//create users
                     (userCreate) => {
                      userController.createUser()

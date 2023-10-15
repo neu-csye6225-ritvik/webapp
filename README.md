@@ -27,6 +27,8 @@
 -    Before running a application make sure there 
 - since node_modules contains nodemon as well. we can run the server two ways:  `npx nodemon` or `npm start`
 
+## Deploy 
+
 ## Application Testing
 run `npm test` : this runs test on integration-test.js
 

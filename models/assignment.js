@@ -66,11 +66,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: new Date(),
       allowNull: false,
-      // readOnly: true
     }
     ,
-    idUser: {
-      type: DataTypes.UUID
+    user_id: {
+      type: DataTypes.UUID,  
+      allowNull: false,
     },
     // Define other columns here
     // userId: {
@@ -83,16 +83,19 @@ module.exports = (sequelize, DataTypes) => {
   },
     {
       timestamps: false, // Disable automatic timestamps
-    });
+    }
+    );
 
-  // Define the association with User
-  Assignments.associate = (models) => {
-    Assignments.belongsTo(models.User,
-      {
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE'
-      });
-  };
+  // // Define the association with User
+  // Assignments.associate = (models) => {
+  //   Assignments.belongsTo(models.User,
+  //     {
+  //       foreignKey: 'user_id',
+  //       onDelete: 'CASCADE'
+  //     });
+  // };
+
+  // Assignments.belongsTo(User, { foreignKey: 'user_id' });
 
   return Assignments;
 };

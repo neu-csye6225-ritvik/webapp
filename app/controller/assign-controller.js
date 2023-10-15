@@ -111,7 +111,7 @@ assignController.createAssignments = async (req, res) => {
       deadline,
       assignment_created: new Date().toISOString(),
       assignment_updated: new Date().toISOString(),
-      idUser: req.authenticatedUser.id,
+      // idUser: req.authenticatedUser.id,
       user_id: req.authenticatedUser.id
 
     });
@@ -153,7 +153,7 @@ assignController.updateAssignment = async (req, res) => {
     }
 
     // Check if the user is authorized to update the assignment  
-    if (assignment.idUser !== req.authenticatedUser.id) {
+    if (assignment.user_id !== req.authenticatedUser.id) {
       return res.status(403).json({ error: 'Unauthorized to update this assignment' });
     }
 
@@ -189,7 +189,7 @@ assignController.deleteAssignment = async (req, res) => {
     }
 
     // Check if the user is authorized to delete the assignment 
-    if (assignment.idUser !== req.authenticatedUser.id) {
+    if (assignment.user_id !== req.authenticatedUser.id) {
       return res.status(403).json({ error: 'Unauthorized to delete this assignment' });
     }
 

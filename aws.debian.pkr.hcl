@@ -60,20 +60,20 @@ build {
   sources = ["source.amazon-ebs.my-ami2"]
 
 
-  provisioner "shell" {
-    inline = [
-      "sudo mkdir -p /tmp/apps/",
-    ]
-  }
+  // provisioner "shell" {
+  //   inline = [
+  //     "sudo mkdir -p /tmp/apps/",
+  //   ]
+  // }
 
-  provisioner "file" {
-    source      = "webapp.zip"
-    destination = "~/webapp.zip"
-  }
+  // provisioner "file" {
+  //   source      = "webapp.zip"
+  //   destination = "~/webapp.zip"
+  // }
 
   provisioner "shell" {
     scripts = [
-      "./setup.sh",
+      "./setDb.sh",
     ]
   }
 

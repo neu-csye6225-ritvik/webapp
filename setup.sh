@@ -37,18 +37,6 @@ sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE postgres TO postgres;
 echo "Grant schema public to postgres"
 sudo -u postgres psql -c "GRANT ALL ON SCHEMA public TO postgres;"
 
-# echo "psql"
-# psql
-
-# echo "Create user"
-# CREATE USER webuser WITH PASSWORD 'webuser';
-
-# echo "Grant privileges"
-# GRANT ALL PRIVILEGES ON DATABASE postgres TO webuser;
-
-# echo "Grant schema public"
-# GRANT ALL ON SCHEMA public TO webuser;
-
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    UNZIP WEBAPP                             |"
@@ -56,8 +44,6 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
-
-
 
 echo "check webapp.zip"
 APP_FOLDER="/home/admin/"
@@ -77,4 +63,6 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 cd webapp
 npm install
+
+
 

@@ -14,7 +14,7 @@ variable "aws_region" {
 
 variable "source_ami" {
   type    = string
-  default = "ami-06db4d78cb1d3bbf9"
+  default = "ami-0ed06a411041144cb"
 }
 
 variable "ssh_username" {
@@ -71,11 +71,11 @@ build {
     destination = "~/webapp.zip"
   }
 
-  //   provisioner "shell" {
-  //     scripts = [
-  //       "./setup.sh",
-  //     ]
-  //   }
+  provisioner "shell" {
+    scripts = [
+      "./setup.sh",
+    ]
+  }
 
 
 }

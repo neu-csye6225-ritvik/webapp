@@ -43,7 +43,7 @@ jobs:
       id: packer_build
       run: |
         echo "Running packer build"
-        packer build aws-ami.pkr.hcl
+        packer build aws.debian.pkr.hcl
         AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
         # AMI_ID="sample_ami_id"
         echo "AMI_ID=$AMI_ID" >> $GITHUB_OUTPUT

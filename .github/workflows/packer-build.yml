@@ -23,13 +23,14 @@ jobs:
         echo DB_PORT=${{ secrets.PGPORT }} >> .env
         echo DB_HOST=${{ secrets.PGHOST }} >> .env
         echo DB_DIALECT=${{ secrets.DB_DIALECT }} >> .env
+        echo APP_PORT=${{ vars.APP_PORT }}
         echo "cat .env"
         cat .env
 
     - name: Zip Web App
       run: zip -r webapp.zip ../webapp
 
-      
+
     - name: Set up Packer
       run: |
         wget https://releases.hashicorp.com/packer/1.8.3/packer_1.8.3_linux_amd64.zip
@@ -43,7 +44,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: 'us-east-1'
+        aws-region: ${{ vars.AWS_REGION }}
 
     - name: Install Packer
       run: |

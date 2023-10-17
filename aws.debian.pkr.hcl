@@ -38,8 +38,17 @@ source "amazon-ebs" "my-ami2" {
     max_attempts  = 50
   }
   instance_type = "t2.micro"
-  source_ami    = "${var.source_ami}"
-  ssh_username  = "${var.ssh_username}"
+  // source_ami    = "${var.source_ami}"
+  source_ami_filter {
+    filters = {
+      name                = "debian-12-amd64-*"
+      root-device-type    = "ebs"
+      virtualization-type = "hvm"
+    }
+    most_recent = true
+    owners      = ["amazon"]
+  }
+  ssh_username = "${var.ssh_username}"
   vpc_filter {
     filters = {
       "isDefault" : "true"
@@ -71,11 +80,11 @@ build {
     destination = "~/webapp.zip"
   }
 
-    provisioner "shell" {
-      scripts = [
-        "./setup.sh",
-      ]
-    }
+  provisioner "shell" {
+    scripts = [
+      "./setup.sh",
+    ]
+  }
 
 
 }

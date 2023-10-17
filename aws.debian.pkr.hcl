@@ -7,7 +7,7 @@ packer {
   }
 }
 
-variable "aws_region" {
+variable "AWS_REGION" {
   type    = string
   default = "us-east-1"
 }
@@ -22,7 +22,7 @@ variable "PGPassword" {
   default = "password"
 }
 
-variable "ssh_username" {
+variable "SSH_USERNAME" {
   type    = string
   default = "admin"
 }
@@ -32,48 +32,78 @@ variable "subnet_id" {
   default = "subnet-0ad2f289e66bbe333"
 }
 
-variable "instance_type" {
+variable "INSTANCE_TYPE" {
   type    = string
   default = "t2.micro"
 }
 
-variable "ami_description" {
+variable "AMI_DESCRIPTION" {
   type    = string
   default = "Debian AMI for CSYE 6225"
 }
 
-variable "profile" {
+variable "PROFILE" {
   type    = string
   default = "dev"
 }
 
-variable "ami_users" {
+variable "VOLUME_TYPE" {
+  type    = string
+  default = "gp2"
+}
+
+variable "VOLUME_SIZE" {
+  type    = number
+  default = 8
+}
+
+variable "DEVICE_NAME" {
+  type    = string
+  default = "/dev/xvda"
+}
+
+variable "AMI_SOURCE_NAME" {
+  type    = string
+  default = "debian-12-amd64-*"
+}
+
+variable "AMI_SOURCE_DEVICE_TYPE" {
+  type    = string
+  default = "ebs"
+}
+
+variable "AMI_SOURCE_VIRTUALIZATION" {
+  type    = string
+  default = "hvm"
+}
+
+variable "AMI_USERS" {
   type    = list(string)
   default = ["686811303427", "038666155741"]
 }
 
 source "amazon-ebs" "my-ami2" {
-  region          = "${var.aws_region}"
-  ami_name        = "debian_csye6225_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  profile         = "${var.profile}"
-  ami_description = "${var.ami_description}"
-  ami_users       = "${var.ami_users}" ## DEV & DEMO
-  aws_polling {
-    delay_seconds = 30
-    max_attempts  = 50
-  }
-  instance_type = "${var.instance_type}"
+  region          = "${var.AWS_REGION}"
+  ami_name        = "${var.AMI_DESCRIPTION}_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
+  profile         = "${var.PROFILE}"
+  ami_description = "${var.AMI_DESCRIPTION}"
+  ami_users       = "${var.AMI_USERS}" ## DEV & DEMO
+  // aws_polling {
+  //   delay_seconds = 30
+  //   max_attempts  = 50
+  // }
+  instance_type = "${var.INSTANCE_TYPE}"
   // source_ami    = "${var.source_ami}"
   source_ami_filter {
     filters = {
-      name                = "debian-12-amd64-*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
+      name                = "${var.AMI_SOURCE_NAME}"
+      root-device-type    = "${var.AMI_SOURCE_DEVICE_TYPE}"
+      virtualization-type = "${var.AMI_SOURCE_VIRTUALIZATION}"
     }
     most_recent = true
     owners      = ["amazon"]
   }
-  ssh_username = "${var.ssh_username}"
+  ssh_username = "${var.SSH_USERNAME}"
   vpc_filter {
     filters = {
       "isDefault" : "true"
@@ -82,9 +112,9 @@ source "amazon-ebs" "my-ami2" {
 
   launch_block_device_mappings {
     delete_on_termination = true
-    device_name           = "/dev/xvda"
-    volume_size           = 8
-    volume_type           = "gp2"
+    device_name           = "${var.DEVICE_NAME}"
+    volume_size           = "${var.VOLUME_SIZE}"
+    volume_type           = "${var.VOLUME_TYPE}"
     # encrypted            = true 
   }
 }

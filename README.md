@@ -49,7 +49,7 @@ run `npm test` : this runs test on integration-test.js
 
 - Once  node_modules is installed. create a .env file and add db details and port details.
 -   `DB_HOSTNAME = localhost`
--   `DB_PASSWORD = 1234`
+-   `DB_PASSWORD = postgres`
 -   `DB_USER = postgres`
 -   `DB_NAME = postgres`
 -   `DB_DIALECT = postgres`
@@ -64,8 +64,12 @@ run `npm test` : this runs test on integration-test.js
 run `npm test` : this runs test on integration-test.js
 
 
-1.Prerequisites for building and deploying your application locally.
-2.Build and Deploy instructions for the web application
+## PACKER
+packer fmt aws.debian.pkr.hcl
+packer validate aws.debian.pkr.hcl
+packer build aws.debian.pkr.hcl
 
-checking github actions
-
+## PULUMI 
+pulumi stack select
+pulumi up 
+pulumi destroy

@@ -17,6 +17,11 @@ variable "source_ami" {
   default = "ami-06db4d78cb1d3bbf9"
 }
 
+variable "PGPassword" {
+  type    = string
+  default = "password"
+}
+
 variable "ssh_username" {
   type    = string
   default = "admin"
@@ -27,17 +32,37 @@ variable "subnet_id" {
   default = "subnet-0ad2f289e66bbe333"
 }
 
+variable "instance_type" {
+  type    = string
+  default = "t2.micro"
+}
+
+variable "ami_description" {
+  type    = string
+  default = "Debian AMI for CSYE 6225"
+}
+
+variable "profile" {
+  type    = string
+  default = "dev"
+}
+
+variable "ami_users" {
+  type    = list(string)
+  default = ["686811303427", "038666155741"]
+}
+
 source "amazon-ebs" "my-ami2" {
   region          = "${var.aws_region}"
   ami_name        = "debian_csye6225_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  profile         = "dev"
-  ami_description = "Debian AMI for CSYE 6225"
-  ami_users       = ["686811303427", "038666155741"] ## DEV & DEMO
+  profile         = "${var.profile}"
+  ami_description = "${var.ami_description}"
+  ami_users       = "${var.ami_users}" ## DEV & DEMO
   aws_polling {
     delay_seconds = 30
     max_attempts  = 50
   }
-  instance_type = "t2.micro"
+  instance_type = "${var.instance_type}"
   // source_ami    = "${var.source_ami}"
   source_ami_filter {
     filters = {
@@ -68,13 +93,6 @@ source "amazon-ebs" "my-ami2" {
 build {
   sources = ["source.amazon-ebs.my-ami2"]
 
-
-  provisioner "shell" {
-    inline = [
-      "sudo mkdir -p /tmp/apps/",
-    ]
-  }
-
   provisioner "file" {
     source      = "webapp.zip"
     destination = "~/webapp.zip"
@@ -86,5 +104,6 @@ build {
     ]
   }
 
+  }
 
-}
+

@@ -64,12 +64,12 @@ run `npm test` : this runs test on integration-test.js
 run `npm test` : this runs test on integration-test.js
 
 
-## PACKER
+## PACKER Setup
 packer fmt aws.debian.pkr.hcl
 packer validate aws.debian.pkr.hcl
 packer build aws.debian.pkr.hcl
 
-## PULUMI 
+## PULUMI Code 
 pulumi stack select
 pulumi up 
 pulumi destroy

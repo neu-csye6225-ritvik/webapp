@@ -1,5 +1,4 @@
 #!/bin/bash 
-# echo $1
 # echo "sudo apt update"
 # sudo apt update
 

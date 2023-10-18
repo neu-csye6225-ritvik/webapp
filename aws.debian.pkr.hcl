@@ -39,7 +39,7 @@ variable "INSTANCE_TYPE" {
 
 variable "AMI_DESCRIPTION" {
   type    = string
-  default = "Debian AMI for CSYE 6225"
+  default = "Debian AMI"
 }
 
 variable "PROFILE" {

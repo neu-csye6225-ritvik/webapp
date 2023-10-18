@@ -23,7 +23,6 @@ jobs:
         echo DB_PORT=${{ secrets.PGPORT }} >> .env
         echo DB_HOST=${{ secrets.PGHOST }} >> .env
         echo DB_DIALECT=${{ secrets.DB_DIALECT }} >> .env
-
         echo APP_PORT=${{ vars.APP_PORT }} >> .env
         echo AWS_REGION=${{ vars.AWS_REGION }} >> .env
         
@@ -36,7 +35,6 @@ jobs:
         echo DEVICE_NAME=${{ vars.DEVICE_NAME }} >> .env
         echo VOLUME_SIZE=${{ vars.VOLUME_SIZE }} >> .env
         echo VOLUME_TYPE=${{ vars.VOLUME_TYPE }} >> .env 
-
         echo "cat .env"
         cat .env
 

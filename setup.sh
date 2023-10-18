@@ -61,6 +61,7 @@ echo "|                                                             |"
 echo "|                    Install Node Modules                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
+echo "cd to webapp to install node modules"
 cd webapp
 npm install
 

@@ -83,7 +83,7 @@ variable "AMI_USERS" {
 }
 
 source "amazon-ebs" "my-ami2" {
-  region          = "${var.AWS_REGION}"
+  // region          = "${var.AWS_REGION}"
   ami_name        = "${var.AMI_DESCRIPTION}_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
   profile         = "${var.PROFILE}"
   ami_description = "${var.AMI_DESCRIPTION}"
@@ -123,17 +123,17 @@ source "amazon-ebs" "my-ami2" {
 build {
   sources = ["source.amazon-ebs.my-ami2"]
 
-  provisioner "file" {
-    source      = "webapp.zip"
-    destination = "~/webapp.zip"
-  }
+  // provisioner "file" {
+  //   source      = "webapp.zip"
+  //   destination = "~/webapp.zip"
+  // }
 
-  provisioner "shell" {
-    scripts = [
-      "./setup.sh",
-    ]
-  }
+  // provisioner "shell" {
+  //   scripts = [
+  //     "./setup.sh",
+  //   ]
+  // }
 
-  }
+}
 
 

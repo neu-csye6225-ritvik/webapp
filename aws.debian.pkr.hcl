@@ -87,7 +87,7 @@ source "amazon-ebs" "my-ami2" {
   ami_name        = "${var.AMI_DESCRIPTION}_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
   profile         = "${var.PROFILE}"
   ami_description = "${var.AMI_DESCRIPTION}"
-  ami_users       = "${var.AMI_USERS}" ## DEV & DEMO users listed
+  ami_users       = "${var.AMI_USERS}" ## DEV & DEMO users listed here
   // aws_polling {
   //   delay_seconds = 30
   //   max_attempts  = 50

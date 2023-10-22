@@ -25,6 +25,7 @@ sudo apt install postgresql postgresql-contrib -y
 echo "sudo systemctl start postgresql.service"
 sudo systemctl start postgresql.service
 
+
 # echo "sudo -i -u postgres"
 # sudo -i -u postgres
 

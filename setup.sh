@@ -5,7 +5,7 @@ echo "|                    Install NodeJS and NPM                   |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "sudo apt update"
-sudo apt update
+sudo apt update 
 
 echo "Node and npm"
 sudo apt install nodejs npm -y
@@ -22,8 +22,8 @@ sudo apt update
 echo "sudo apt install postgresql postgresql-contrib"
 sudo apt install postgresql postgresql-contrib -y
 
-echo "sudo systemctl start postgresql.service"
-sudo systemctl start postgresql.service
+# echo "sudo systemctl start postgresql.service"
+# sudo systemctl start postgresql.service
 
 
 # echo "sudo -i -u postgres"
@@ -66,3 +66,12 @@ echo "cd to webapp to install node modules"
 cd webapp
 npm install
 
+
+
+echo "+-------------------------------------------------------------+"
+echo "|                                                             |"
+echo "|                    Remove  Git                              |"
+echo "|                                                             |"
+echo "+-------------------------------------------------------------+"
+cd
+sudo apt-get remove -y git

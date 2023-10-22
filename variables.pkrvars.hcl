@@ -1,0 +1,15 @@
+AWS_REGION                = "us-east-1"
+source_ami                = "ami-06db4d78cb1d3bbf9"
+PGPassword                = " password "
+SSH_USERNAME              = " admin "
+subnet_id                 = " subnet-0ad2f289e66bbe333 "
+INSTANCE_TYPE             = " t2.micro "
+AMI_DESCRIPTION           = " Debian AMI variables "
+PROFILE                   = " dev "
+VOLUME_TYPE               = " gp2 "
+VOLUME_SIZE               = 8
+DEVICE_NAME               = " / dev / xvda "
+AMI_SOURCE_NAME           = " debian-12-amd64- * "
+AMI_SOURCE_DEVICE_TYPE    = " ebs "
+AMI_SOURCE_VIRTUALIZATION = " hvm "
+AMI_USERS                 = [" 686811303427 ", " 038666155741 "]

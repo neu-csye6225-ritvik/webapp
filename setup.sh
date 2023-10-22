@@ -10,32 +10,32 @@ sudo apt update
 echo "Node and npm"
 sudo apt install nodejs npm -y
 
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Install POSTGRESQL                       |"   
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
+# echo "+-------------------------------------------------------------+"
+# echo "|                                                             |"
+# echo "|                    Install POSTGRESQL                       |"   
+# echo "|                                                             |"
+# echo "+-------------------------------------------------------------+"
 
-echo "sudo apt update"
-sudo apt update
+# echo "sudo apt update"
+# sudo apt update
 
-echo "sudo apt install postgresql postgresql-contrib"
-sudo apt install postgresql postgresql-contrib -y
+# echo "sudo apt install postgresql postgresql-contrib"
+# sudo apt install postgresql postgresql-contrib -y
 
-echo "sudo systemctl start postgresql.service"
-sudo systemctl start postgresql.service
+# echo "sudo systemctl start postgresql.service"
+# sudo systemctl start postgresql.service
 
-echo "sudo -i -u postgres"
-sudo -i -u postgres
+# echo "sudo -i -u postgres"
+# sudo -i -u postgres
 
-echo "alter postgres user password"
-sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+# echo "alter postgres user password"
+# sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 
-echo "Grant all privileges to postgres user"
-sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE postgres TO postgres;"
+# echo "Grant all privileges to postgres user"
+# sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE postgres TO postgres;"
 
-echo "Grant schema public to postgres"
-sudo -u postgres psql -c "GRANT ALL ON SCHEMA public TO postgres;"
+# echo "Grant schema public to postgres"
+# sudo -u postgres psql -c "GRANT ALL ON SCHEMA public TO postgres;"
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"

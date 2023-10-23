@@ -1,0 +1,15 @@
+[Unit]
+Description=systemd
+Documentation=https://example.com
+After=network.target
+
+[Service]
+WorkingDirectory=/home/admin/webapp/
+EnvironmentFile=/home/admin/webapp/.env
+Type=simple
+User=admin
+ExecStart=/usr/bin/node /home/admin/webapp/server.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

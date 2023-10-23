@@ -5,7 +5,7 @@ echo "|                    Install NodeJS and NPM                   |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "sudo apt update"
-sudo apt update
+sudo apt update 
 
 echo "Node and npm"
 sudo apt install nodejs npm -y
@@ -81,4 +81,10 @@ sudo systemctl enable webapp
 
 
 
-
+echo "+-------------------------------------------------------------+"
+echo "|                                                             |"
+echo "|                    Remove  Git                              |"
+echo "|                                                             |"
+echo "+-------------------------------------------------------------+"
+cd
+sudo apt-get remove -y git

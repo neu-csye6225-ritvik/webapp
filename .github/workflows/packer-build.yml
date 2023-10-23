@@ -16,7 +16,8 @@ jobs:
     - name:  env file
       run: |
         touch .env
-        
+          
+        echo NODE_ENV=${{ vars.NODE_ENV }} >> .env
         echo DB_NAME=${{ secrets.PGDATABASE }} >> .env
         echo DB_USER=${{ secrets.PGUSER }} >> .env
         echo DB_PASSWORD=${{ secrets.PGPASSWORD }} >> .env

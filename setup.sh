@@ -66,3 +66,19 @@ echo "cd to webapp to install node modules"
 cd webapp
 npm install
 
+echo "+-------------------------------------------------------------+"
+echo "|                                                             |"
+echo "|                    Setup Systemd                            |"
+echo "|                                                             |"
+echo "+-------------------------------------------------------------+"
+echo "cd to /lib/systemd/system"
+sudo cp -r webapp.service /lib/systemd/system
+
+cd 
+sudo systemctl start webapp
+sudo systemctl status webapp
+sudo systemctl enable webapp
+
+
+
+

@@ -12,4 +12,4 @@ ExecStart=/usr/bin/node /home/admin/webapp/server.js
 Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=cloud-init.target

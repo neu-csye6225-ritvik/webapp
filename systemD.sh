@@ -32,7 +32,6 @@ sudo touch /var/log/webapp.log
 sudo chown webappuser:webappgroup /var/log/webapp.log
 sudo chmod 644 /var/log/webapp.log
 
-
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Setup Systemd                            |"
@@ -43,4 +42,3 @@ cd
 sudo systemctl start webapp
 sudo systemctl status webapp
 sudo systemctl enable webapp
-

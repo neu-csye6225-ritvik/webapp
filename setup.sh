@@ -50,6 +50,7 @@ sudo apt install unzip
 FOLDER="/home/csye"
 sudo mkdir -p $FOLDER
 unzip "webapp.zip" -d $FOLDER
+
 echo "----Checking if the file exists----"
 ls 
 sudo chown -R csye:csye webapp
@@ -63,7 +64,6 @@ echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
 cd webapp
 npm install
-
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"

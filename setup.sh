@@ -41,16 +41,6 @@ sudo apt update
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                    Create a new user for systemd            |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-sudo groupadd csye
-sudo useradd -s /bin/false -g csye -d /home/csye -m csye
-
-
-
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
 echo "|                    UNZIP WEBAPP                             |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
@@ -66,7 +56,6 @@ ls
 sudo chown -R csye:csye webapp
 sudo chmod -R u+rw webapp
 
-
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Install Node Modules                     |"
@@ -75,9 +64,6 @@ echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
 cd webapp
 npm install
-
-
-
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"

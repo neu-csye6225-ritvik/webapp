@@ -32,15 +32,12 @@ sudo touch /var/log/webapp.log
 sudo chown webappuser:webappgroup /var/log/webapp.log
 sudo chmod 644 /var/log/webapp.log
 
+
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Setup Systemd                            |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
-echo "cp to /lib/systemd/system"
-cd
-cd webapp
-sudo cp -r webapp.service /lib/systemd/system
 
 cd 
 sudo systemctl start webappuser

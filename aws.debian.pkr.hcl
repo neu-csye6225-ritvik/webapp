@@ -119,7 +119,6 @@ source "amazon-ebs" "my-ami2" {
   }
 }
 
-
 build {
   sources = ["source.amazon-ebs.my-ami2"]
 
@@ -144,5 +143,6 @@ build {
       "./systemD.sh",
     ]
   }
+
 
 }

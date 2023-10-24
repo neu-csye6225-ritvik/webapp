@@ -52,8 +52,8 @@ sudo mkdir -p $FOLDER
 unzip "webapp.zip" -d $FOLDER
 echo "----Checking if the file exists----"
 ls 
-sudo chown -R csye:csye webapp
-sudo chmod -R u+rw webapp
+sudo chown -R csye:csye /home/csye/webapp
+sudo chmod -R u+rw /home/csye/webapp
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
@@ -61,7 +61,8 @@ echo "|                    Install Node Modules                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
-cd webapp
+cd
+cd home/csye/webapp
 npm install
 
 

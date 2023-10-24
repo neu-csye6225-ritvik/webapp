@@ -56,17 +56,14 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
+unzip "webapp.zip" /home/admin
+
 APP_FOLDER="/home/csye/"
 echo "copying the webapp to -" $APP_FOLDER
-cp -r /home/admin/webapp.zip $APP_FOLDER
+cp -r /home/admin/webapp $APP_FOLDER
 cd $APP_FOLDER
 echo "----Checking if the file exists----"
 ls 
-
-
-# sudo mkdir -p $APP_FOLDER
-unzip "webapp.zip" -d $APP_FOLDER
-
 sudo chown -R csye:csye webapp
 sudo chmod -R u+rw webapp
 

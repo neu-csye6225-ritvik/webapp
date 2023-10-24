@@ -7,7 +7,7 @@ After=network.target
 WorkingDirectory=/home/csye/webapp/
 EnvironmentFile=/home/csye/webapp/.env
 Type=simple
-User=csye
+User=webappuser
 ExecStart=/usr/bin/node /home/admin/webapp/server.js
 Restart=on-failure
 

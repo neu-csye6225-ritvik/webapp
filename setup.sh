@@ -55,7 +55,6 @@ ls
 sudo chown -R csye:csye /home/csye/webapp
 sudo chmod -R u+rw /home/csye/webapp
 
-
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Install Node Modules                     |"

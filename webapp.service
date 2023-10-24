@@ -4,10 +4,10 @@ Documentation=https://example.com
 After=network.target
 
 [Service]
-WorkingDirectory=/home/admin/webapp/
-EnvironmentFile=/home/admin/webapp/.env
+WorkingDirectory=/home/csye/webapp/
+EnvironmentFile=/home/csye/webapp/.env
 Type=simple
-User=admin
+User=csye
 ExecStart=/usr/bin/node /home/admin/webapp/server.js
 Restart=on-failure
 

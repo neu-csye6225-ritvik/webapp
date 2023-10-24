@@ -6,4 +6,4 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 sudo groupadd csye
 sudo useradd -s /bin/false -g csye -d /home/csye -m csye
-sudo chmod 755 /home/csye
+sudo chmod 777 /home/csye

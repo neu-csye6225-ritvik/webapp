@@ -43,7 +43,7 @@ echo "|                                                             |"
 echo "|                    Create a new user for systemd            |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
-sudo groupadd csye6225
+sudo groupadd csye
 sudo useradd -s /bin/false -g csye -d /home/csye -m csye
 
 
@@ -67,7 +67,7 @@ ls
 # sudo mkdir -p $APP_FOLDER
 unzip "webapp.zip" -d $APP_FOLDER
 
-sudo chown -R csye6225:csye webapp
+sudo chown -R csye:csye webapp
 sudo chmod -R u+rw webapp
 
 
@@ -90,7 +90,7 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to /lib/systemd/system"
 sudo cp -r webapp.service /lib/systemd/system
-sudo chown -R csye6225:csye webapp.service
+sudo chown -R csye:csye webapp.service
 
 sudo systemctl start webapp
 sudo systemctl status webapp

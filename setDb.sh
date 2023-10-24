@@ -19,8 +19,8 @@ sudo apt install nodejs npm -y
 echo "sudo apt update"
 sudo apt update
 
-echo "sudo apt install postgresql postgresql-contrib"
-sudo apt install postgresql postgresql-contrib -y
+#echo "sudo apt install postgresql postgresql-contrib"
+#sudo apt install postgresql postgresql-contrib -y
 
 # echo "sudo systemctl start postgresql.service"
 # sudo systemctl start postgresql.service

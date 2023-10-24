@@ -39,6 +39,6 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 
 cd 
-sudo systemctl start webappuser
-sudo systemctl status webappuser
-sudo systemctl enable webappuser
+sudo systemctl start webapp
+sudo systemctl status webapp
+sudo systemctl enable webapp

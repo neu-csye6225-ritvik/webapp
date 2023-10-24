@@ -38,15 +38,6 @@ sudo apt update
 # echo "Grant schema public to postgres"
 # sudo -u postgres psql -c "GRANT ALL ON SCHEMA public TO postgres;"
 
-echo "+-------------------------------------------------------------+"
-echo "|                                                             |"
-echo "|                    Create a new user for systemd            |"
-echo "|                                                             |"
-echo "+-------------------------------------------------------------+"
-sudo groupadd csye
-sudo useradd -s /bin/false -g csye -d /home/csye -m csye
-
-
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
@@ -56,14 +47,9 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
-ADMIN_FOLDER="/home/admin"
-sudo mkdir -p $ADMIN_FOLDER
-unzip "webapp.zip" -d $ADMIN_FOLDER
-
-APP_FOLDER="/home/csye/"
-echo "copying the webapp to -" $APP_FOLDER
-mv webapp $APP_FOLDER
-cd $APP_FOLDER
+FOLDER="/home/csye"
+sudo mkdir -p $FOLDER
+unzip "webapp.zip" -d $FOLDER
 echo "----Checking if the file exists----"
 ls 
 sudo chown -R csye:csye webapp

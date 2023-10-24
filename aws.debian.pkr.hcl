@@ -123,9 +123,15 @@ source "amazon-ebs" "my-ami2" {
 build {
   sources = ["source.amazon-ebs.my-ami2"]
 
+  provisioner "shell" {
+    scripts = [
+      "./systemD.sh",
+    ]
+  }
+
   provisioner "file" {
     source      = "webapp.zip"
-    destination = "~/webapp.zip"
+    destination = "/home/csye/webapp.zip"
   }
 
   provisioner "file" {

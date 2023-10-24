@@ -56,8 +56,10 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
-ADMIN_FOLDER="/home/admin"
+ADMIN_FOLDER="/home/admin/"
+echo "sudo mkdir -p $ADMIN_FOLDER"
 sudo mkdir -p $ADMIN_FOLDER
+
 unzip "webapp.zip" -d $ADMIN_FOLDER
 
 APP_FOLDER="/home/csye/"

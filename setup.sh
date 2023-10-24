@@ -56,11 +56,13 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
-unzip "webapp.zip" /home/admin
+ADMIN_FOLDER="/home/admin"
+sudo mkdir -p $ADMIN_FOLDER
+unzip "webapp.zip" -d $ADMIN_FOLDER
 
 APP_FOLDER="/home/csye/"
 echo "copying the webapp to -" $APP_FOLDER
-cp -r /home/admin/webapp $APP_FOLDER
+cp -r webapp $APP_FOLDER
 cd $APP_FOLDER
 echo "----Checking if the file exists----"
 ls 

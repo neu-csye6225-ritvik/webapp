@@ -56,7 +56,6 @@ echo "copying the webapp to -" $APP_FOLDER
 sudo mkdir -p $APP_FOLDER
 unzip "webapp.zip" -d $APP_FOLDER
 
-
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
 echo "|                    Install Node Modules                     |"
@@ -65,6 +64,10 @@ echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
 cd webapp
 npm install
+
+echo "cp webapp.service for systemd"
+sudo cp -r webapp.service /lib/systemd/system
+echo "copied success"
 
 
 echo "+-------------------------------------------------------------+"

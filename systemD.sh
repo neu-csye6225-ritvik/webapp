@@ -37,14 +37,8 @@ echo "|                                                             |"
 echo "|                    Setup Systemd                            |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
-echo "cp to /lib/systemd/system"
-cd
-cd webapp
-sudo cp -r webapp.service /lib/systemd/system
 
 cd 
 sudo systemctl start webappuser
 sudo systemctl status webappuser
 sudo systemctl enable webappuser
-
-

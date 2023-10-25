@@ -60,5 +60,7 @@ echo "+-------------------------------------------------------------+"
 
 cd 
 sudo systemctl start webapp
+sudo systemctl restart webapp
 sudo systemctl status webapp
 sudo systemctl enable webapp
+

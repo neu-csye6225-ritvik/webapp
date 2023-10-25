@@ -6,11 +6,8 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 
 # Create a non-admin user
-sudo useradd -m webappuser
-sudo groupadd webappgroup
-
-sudo groupadd webappgroup
-sudo useradd -s /bin/false -g webappgroup -d /opt/webappuser -m webappuser
+# sudo useradd -m webappuser
+# sudo groupadd webappgroup
 
 # # Add webappuser and admin to the webappgroup
 # sudo usermod -aG webappgroup webappuser

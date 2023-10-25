@@ -7,6 +7,9 @@ echo "+-------------------------------------------------------------+"
 echo "sudo apt update"
 sudo apt update 
 
+
+
+
 echo "Node and npm"
 sudo apt install nodejs npm -y
 
@@ -18,6 +21,7 @@ sudo apt install nodejs npm -y
 
 echo "sudo apt update"
 sudo apt update
+
 
 # echo "sudo apt install postgresql postgresql-contrib"
 # sudo apt install postgresql postgresql-contrib -y
@@ -38,6 +42,14 @@ sudo apt update
 # echo "Grant schema public to postgres"
 # sudo -u postgres psql -c "GRANT ALL ON SCHEMA public TO postgres;"
 
+echo "+-------------------------------------------------------------+"
+echo "|                                                             |"
+echo "|                    Setup webappuser                         |"
+echo "|                                                             |"
+echo "+-------------------------------------------------------------+"
+sudo groupadd webappgroup
+sudo useradd -s /bin/false -g webappgroup -d /opt/webappuser -m webappuser
+
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
@@ -47,10 +59,8 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
-FOLDER="/opt"
-sudo mkdir -p $FOLDER
-sudo cp -r /tmp/webapp.zip $FOLDER
-unzip "webapp.zip" -d $FOLDER
+
+unzip "webapp.zip" -d webappuser
 echo "----Checking if the file exists----"
 ls 
 

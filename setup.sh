@@ -61,9 +61,10 @@ sudo apt install unzip
 
 echo "check webapp in home directory"
 ls
-sudo cp -r  webapp.zip /opt
-cd /opt
-echo "unzip in opt"
+echo "cp webapp to user home directory"
+sudo cp -r  webapp.zip /opt/webappuser
+cd /opt/webappuser
+echo "unzip in opt/webappuser"
 sudo unzip webapp.zip
 
 echo "----Checking if the file exists----"
@@ -86,6 +87,7 @@ echo "|                    Setup webapp.service                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to /lib/systemd/system"
+cd
 sudo cp -r webapp.service /lib/systemd/system
 
 

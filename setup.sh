@@ -61,6 +61,7 @@ sudo apt install unzip
 
 
 unzip "webapp.zip" -d webappuser
+cd /opt
 echo "----Checking if the file exists----"
 ls 
 

@@ -1,9 +1,26 @@
 #!/bin/bash
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                    Create a new user for systemd            |"
+echo "|                    setup new user permissions               |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
+
+echo "get the home directory of user"
+echo ~webappuser
+# sudo -u webappuser bash
+echo "display permissions of user directory"
+ls -la /opt/webappuser
+
+echo "change permissions of webapp"
+sudo chown -R webappuser:webappgroup /opt/webappuser/webapp
+sudo chmod -R 750  /opt/webappuser/webapp
+
+echo "display permissions of user directory"
+ls -la /opt/webappuser
+
+# sudo -u webappuser bash
+# cd webapp
+
 
 # Create a non-admin user
 # sudo useradd -m webappuser

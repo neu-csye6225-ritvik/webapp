@@ -47,13 +47,13 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
-FOLDER="/home/csye"
+FOLDER="/opt"
 sudo mkdir -p $FOLDER
+sudo cp -r /tmp/webapp.zip $FOLDER
 unzip "webapp.zip" -d $FOLDER
 echo "----Checking if the file exists----"
 ls 
-sudo chown -R csye:csye /home/csye/webapp
-sudo chmod -R u+rw /home/csye/webapp
+
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
@@ -62,23 +62,17 @@ echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
 cd
-cd home/csye/webapp
+cd /opt/webapp
 npm install
 
 
 echo "+-------------------------------------------------------------+"
 echo "|                                                             |"
-echo "|                    Setup Systemd                            |"
+echo "|                    Setup webapp.service                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to /lib/systemd/system"
 sudo cp -r webapp.service /lib/systemd/system
-sudo chown -R csye:csye webapp.service
-
-sudo systemctl start webapp
-sudo systemctl status webapp
-sudo systemctl enable webapp
-
 
 
 echo "+-------------------------------------------------------------+"

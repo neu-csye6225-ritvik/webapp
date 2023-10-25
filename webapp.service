@@ -4,11 +4,11 @@ Documentation=https://example.com
 After=network.target
 
 [Service]
-WorkingDirectory=/home/admin/webapp/
-EnvironmentFile=/home/admin/webapp/.env
+WorkingDirectory=/opt/webapp/
+EnvironmentFile=/opt/webapp/.env
 Type=simple
 User=webappuser
-ExecStart=/usr/bin/node /home/admin/webapp/server.js
+ExecStart=/usr/bin/node /opt/webapp/server.js
 Restart=on-failure
 
 [Install]

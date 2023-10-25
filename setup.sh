@@ -59,9 +59,13 @@ echo "+-------------------------------------------------------------+"
 sudo apt update
 sudo apt install unzip
 
-
-unzip "webapp.zip" -d webappuser
+echo "check webapp in home directory"
+ls
+sudo cp -r  webapp.zip /opt
 cd /opt
+echo "unzip in opt"
+sudo unzip webapp.zip
+
 echo "----Checking if the file exists----"
 ls 
 
@@ -72,9 +76,8 @@ echo "|                    Install Node Modules                     |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
 echo "cd to webapp to install node modules"
-cd
-cd /opt/webapp
-npm install
+cd webapp
+sudo npm install
 
 
 echo "+-------------------------------------------------------------+"

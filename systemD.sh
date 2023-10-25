@@ -9,9 +9,6 @@ echo "+-------------------------------------------------------------+"
 # sudo useradd -m webappuser
 # sudo groupadd webappgroup
 
-sudo groupadd webappgroup
-sudo useradd -s /bin/false -g webappgroup -d /opt/webappuser -m webappuser
-
 # # Add webappuser and admin to the webappgroup
 # sudo usermod -aG webappgroup webappuser
 # sudo usermod -aG webappgroup admin

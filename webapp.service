@@ -9,7 +9,7 @@ EnvironmentFile=/opt/webappuser/webapp/.env
 Type=simple
 User=webappuser
 ExecStart=/usr/bin/node /opt/webappuser/webapp/server.js
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=cloud-init.target

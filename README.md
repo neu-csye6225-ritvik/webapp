@@ -49,14 +49,14 @@ run `npm test` : this runs test on integration-test.js
 
 - Once  node_modules is installed. create a .env file and add db details and port details.
 -   `DB_HOSTNAME = localhost`
--   `DB_PASSWORD = postgres`
--   `DB_USER = postgres`
--   `DB_NAME = postgres`
+-   `DB_PASSWORD = `
+-   `DB_USER = `
+-   `DB_NAME = `
 -   `DB_DIALECT = postgres`
 -   `DB_PORT = 5432`
--   `APP_PORT = 7799`
+-   `APP_PORT = `
 -    Before running a application make sure there 
-- since node_modules contains nodemon as well. we can run the server two ways:  `npx nodemon` or `npm start`
+- since node_modules contains nodemon as well. we can run the server two ways:  `npx nodemon` or `node server.js`
 
 ## Deploy 
 
@@ -74,4 +74,3 @@ pulumi stack select
 pulumi up 
 pulumi destroy
 
-testing

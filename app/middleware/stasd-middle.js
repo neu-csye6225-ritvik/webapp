@@ -1,5 +1,5 @@
-const statsdClient = require('./../config/statsd.js');
-const logger = require('./../config/logger.js');
+const statsdClient = require('../../config/statsd.js');
+const logger = require('../../config/logger.js');
 
 
 const reqCounter = (req, res, next) => {

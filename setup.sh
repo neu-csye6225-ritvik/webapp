@@ -105,13 +105,13 @@ echo "|                                                             |"
 echo "|                 INSTALL & CONFIGURE CLOUDWATCH              |"
 echo "|                                                             |"
 echo "+-------------------------------------------------------------+"
-sudo yum install amazon-cloudwatch-agent -y 
 
-# # sudo cp cloudwatch-config.json /opt/cloudwatch-config.json
-# sudo systemctl enable amazon-cloudwatch-agent
-
-# sudo mkdir /opt/webuser/webapp/logs
-
+echo 'Downloading the CloudWatch Agent package...'
+sudo wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
+ 
+echo 'Installing the CloudWatch Agent package...'
+sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
+ 
 echo 'Enabling the CloudWatch Agent service...'
 sudo systemctl enable amazon-cloudwatch-agent
 sudo systemctl start amazon-cloudwatch-agent

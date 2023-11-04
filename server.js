@@ -13,6 +13,7 @@ const AssignmentModel = require('./models/assignment');
 const winston = require('winston');
 const healthRouter = require('./app/route/route-health.js');
 const userController = require('./app/controller/user-controller.js');
+const logger = require('./config/logger.js');
 
 const port = process.env.APP_PORT;
 
@@ -27,16 +28,19 @@ Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 
 async function main() {
     await sequelize.authenticate();
+    logger.info("Connecting to database URL: " + sequelize.config.host );
     await sequelize.sync({alter:true})
                    .then(//create users
                     (userCreate) => {
                      userController.createUser()
                     }
-                   );
+                   )
+                   .then(logger.info("users created"));
 }
 main();
 
 app.listen(port,async()=>{
+  logger.info(`App started on port: ${port}`)
       console.log("App started on: " + port)
     //   main();
     })

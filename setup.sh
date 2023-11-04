@@ -100,5 +100,18 @@ cd
 sudo apt-get remove -y git
 
 
+echo "+-------------------------------------------------------------+"
+echo "|                                                             |"
+echo "|                 INSTALL & CONFIGURE CLOUDWATCH              |"
+echo "|                                                             |"
+echo "+-------------------------------------------------------------+"
+sudo yum install amazon-cloudwatch-agent -y 
 
+# # sudo cp cloudwatch-config.json /opt/cloudwatch-config.json
+# sudo systemctl enable amazon-cloudwatch-agent
 
+# sudo mkdir /opt/webuser/webapp/logs
+
+echo 'Enabling the CloudWatch Agent service...'
+sudo systemctl enable amazon-cloudwatch-agent
+sudo systemctl start amazon-cloudwatch-agent

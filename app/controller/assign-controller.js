@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 const validation = require('../service/validation');
 const user = require('../../models/user.js');
 
+const logger = require('../../config/logger.js');
 
 const assignController = {};
 
@@ -21,6 +22,7 @@ assignController.authenticateUser = async (req, res, next) => {
 
   if (!credentials) {
     validation.unauthorized(res, 'Authentication required')
+    logger.info(`Authentication required`)
     return;
   }
 
@@ -30,11 +32,12 @@ assignController.authenticateUser = async (req, res, next) => {
 
   if (!user || !bcrypt.compareSync(password, user.password)) {
     validation.unauthorized(res, 'Invalid credentials')
+    logger.info('Invalid credentials')
     return;
   }
   // Attach the authenticated user to the request
   req.authenticatedUser = user;
-
+  logger.info("User Authenticated")
   next()
 };
 
@@ -46,6 +49,7 @@ assignController.getAssignments = async (req, res) => {
       // where: { idUser: req.authenticatedUser.id } // Filter by userId
     });
     validation.ok(res, "ok", assignments)
+    logger.info("Assignments retrieved")
     // res.status(200).json(assignments);
   } catch (error) {
     validation.serverError(res, 'Error fetching assignments')
@@ -59,17 +63,13 @@ assignController.getAssignment = async (req, res) => {
   try {
     const assignment = await Assignments.findByPk(id);
     if (!assignment) {
+      logger.info("Assignment not found")
       return validation.notFound(res, 'Assignment not found')
       // return res.status(404).json({ error: 'Assignment not found' });
     }
-    // Check if the user is authorized to update the assignment  
-    // if (assignment.idUser !== req.authenticatedUser.id) {
-    //  return validation.forbidden(res,'Unauthorized to access this assignment')
-    //   // return res.status(403).json({ error: 'Unauthorized to access this assignment' });
-
-    // }
 
     validation.ok(res, "ok", assignment)
+    logger.info(`Assignment ${assignment.id} found`)
     // res.status(200).json(assignment);
   } catch (error) {
     validation.serverError(res, 'Error fetching assignments')
@@ -87,6 +87,7 @@ assignController.createAssignments = async (req, res) => {
   const { missingFields, extraFields } = validation.validateFields(req.body, expectedFields);
 
   if (missingFields.length > 0 || extraFields.length > 0) {
+    logger.info(`Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`)
     validation.badRequest(
       res,
       `Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`
@@ -96,12 +97,6 @@ assignController.createAssignments = async (req, res) => {
 
 
   try {
-    // Check if points are within the range [1, 10]
-    // if (points < 1 || points > 10) {
-    //   return validation.badRequest(res,'Points must be between 1 and 10');
-    //   // return res.status(400).json({ error: 'Points must be between 1 and 10' });
-    // }
-
     console.log("User ID", req.authenticatedUser.id);
 
     const newAssignment = await Assignments.create({
@@ -117,8 +112,10 @@ assignController.createAssignments = async (req, res) => {
     });
 
     validation.created(res, "Assignment created", newAssignment)
+    logger.info(`Assignments created with id: ${newAssignment.name}`);
     // res.status(201).json(newAssignment);
   } catch (error) {
+    logger.info(`Failed to create assignment`)
     console.error('Failed to create assignment', error);
     validation.badRequest(res, 'Failed to create assignment')
     // res.status(400).json({ error: 'Failed to create assignment' });
@@ -136,6 +133,7 @@ assignController.updateAssignment = async (req, res) => {
   const { missingFields, extraFields } = validation.validateFields(req.body, expectedFields);
 
   if (missingFields.length > 0 || extraFields.length > 0) {
+    logger.info(`Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`)
     validation.badRequest(
       res,
       `Invalid/Missing fields: ${[...missingFields, ...extraFields].join(', ')}`
@@ -171,6 +169,7 @@ assignController.updateAssignment = async (req, res) => {
 
     // validation.ok(res, "ok", assignment)
     res.status(204).send(); // No content response
+    logger.info(`Assignment Updated ${assignment.id}`)
   } catch (error) {
     validation.badRequest(res, 'Failed to create assignment')
   }
@@ -198,6 +197,7 @@ assignController.deleteAssignment = async (req, res) => {
     await assignment.destroy();
 
     res.status(204).send(); // No content response for successful deletion
+    logger.info(`Assignment deleted ${assignment.id}`)
   } catch (error) {
     res.status(500).json({ error: 'Error deleting assignment' });
   }

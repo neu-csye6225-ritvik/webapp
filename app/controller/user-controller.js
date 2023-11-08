@@ -4,6 +4,7 @@ const { sequelize } = require('../../models');
 const { Sequelize } = require('sequelize');
 const UserModel = require("../../models/user");
 
+const logger = require('../../config/logger.js');
 
 const User = UserModel(sequelize, Sequelize);
 
@@ -11,11 +12,11 @@ var userController = {};
 
 userController.createUser = async function () {
   try {
-    console.log('Connection to the database has been established successfully.');
+    logger.info('Connection to the database has been established successfully.');
 
     const csvFilePath = 'opt/users.csv';
     const csvData = fs.readFileSync(csvFilePath, 'utf-8').split('\n');
-    console.log(csvData);
+    logger.info(csvData);
     const numberOfRows = csvData.length;
 
     for (let i = 1; i < numberOfRows - 1; i++) {
@@ -33,13 +34,13 @@ userController.createUser = async function () {
           email,
           password
         });
-        console.log(`User with email ${email} created.`);
+        logger.info(`User with email ${email} created.`);
       } else {
-        console.log(`User with email ${email} already exists.`);
+        logger.info(`User with email ${email} already exists.`);
       }
     }
 
-    console.log('Database bootstrapped successfully.');
+    logger.info('Database bootstrapped successfully.');
   } catch (error) {
     console.error('Error bootstrapping the database:', error);
   }

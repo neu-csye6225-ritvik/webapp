@@ -15,7 +15,7 @@ const reqCounter = (req, res, next) => {
 
 
 const reqTimer = (req, res, next) => {
-    const start = Date.now();
+    const start = Date.now();   
     // console.log(res);
     res.on('finish', () => {
         const duration = Date.now() - start;

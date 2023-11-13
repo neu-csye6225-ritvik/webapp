@@ -72,6 +72,8 @@ packer build aws.debian.pkr.hcl
 ## PULUMI Code 
 pulumi stack select
 pulumi up 
-pulumi destroyß
+pulumi destroy
+
+Assign7 demo
 
 

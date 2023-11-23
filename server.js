@@ -9,6 +9,7 @@ const { Sequelize } = require('sequelize');
 const UserModel = require('./models/user');
 
 const AssignmentModel = require('./models/assignment');
+const SubmissionModel = require('./models/submission.js');
 // const logger = require('./logger')
 const winston = require('winston');
 const healthRouter = require('./app/route/route-health.js');
@@ -19,10 +20,13 @@ const port = process.env.APP_PORT;
 
 const User = UserModel(sequelize,Sequelize);
 const Assignment = AssignmentModel(sequelize, Sequelize);
+const Submission = SubmissionModel(sequelize, Sequelize);
+
 
 // User.hasMany(Assignment, { foreignKey: 'user_id' });
 
 Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+Submission.belongsTo(Assignment, { foreignKey: 'assignment_id', onDelete: 'CASCADE' });
 
 // User.hasMany(Assignment,{foreignKey:{name :"userId"},onDelete:"CASCADE",field:"userId",allowNull:false})
 

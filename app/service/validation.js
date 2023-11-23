@@ -70,6 +70,12 @@ const unauthorized = (res, message) => {
     res.status(404).json({ error: message });
   };
 
+    // Function to send a 404 - Not Found response
+    const conflict = (res, message = 'entry exists') => {
+      res.status(409).json({ error: message });
+    };
+  
+
   const serverError = (res,message) =>{
     res.status(500).json({message})
 }  
@@ -85,6 +91,7 @@ const unauthorized = (res, message) => {
     validateFields,
     rejectPayload,
     patchmethod,
-    queryParams
+    queryParams,
+    conflict
   };
   

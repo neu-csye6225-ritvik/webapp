@@ -96,22 +96,6 @@ submissionController.createSubmission = async (req, res) => {
             return validation.badRequest(res, 'Assignment deadline has passed');
         }
 
-        // if (currentAttempts > assignment.num_of_attempts) {
-        //     return validation.badRequest(res, 'Maximum attempts reached for this assignment');
-        // } 
-        // else {
-        //     // Fetch submissions related to the assignment ID
-        //     const existingSubmissions = await Submission.findAll({
-        //         where: { assignment_id: req.params.assignmentId }, // Replace with your actual query
-        //     });
-
-        //     // Update the assignment_updated field for each submission
-        //     existingSubmissions.forEach(async (submission) => {
-        //         submission.assignment_updated = new Date().toISOString(); // Update with current timestamp or from the new submission
-        //         await submission.save(); // Save the updated submission to the database
-        //     });
-        // }
-
 
         const newSubmission = await Submission.create({
             assignment_id: assignment_id,
@@ -120,15 +104,13 @@ submissionController.createSubmission = async (req, res) => {
             assignment_updated: new Date().toISOString()
         });
 
-        validation.created(res, "Submission created", newSubmission)
-        logger.info(`Submission created with id: ${newSubmission.id}`);
-
-      
         const submissionObject = {
             submission_url: submission_url,
             email: user.email
         }
       
+        logger.info(JSON.stringify(submissionObject));
+        
         // Post submission URL to dynamically retrieved SNS topic ARN
         const sns = new AWS.SNS({ region: aws_region }); // Replace with your AWS region
         const snsParams = {
@@ -143,6 +125,12 @@ submissionController.createSubmission = async (req, res) => {
                 logger.info('Submission URL sent to SNS successfully:', data);
             }
         });
+
+
+        validation.created(res, "Submission created", newSubmission)
+        logger.info(`Submission created with id: ${newSubmission.id}`);
+
+       
 
 
         // res.status(201).json(newAssignment);

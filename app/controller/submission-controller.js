@@ -24,9 +24,9 @@ const aws_region = process.env.AWS_REGION
 const aws_profile = process.env.AWS_PROFILE
 
 const AWS = require('aws-sdk');
-const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
-AWS.config.credentials = aws_cred;
-logger.info(AWS.config.credentials);
+// const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
+// AWS.config.credentials = aws_cred;
+// logger.info(AWS.config.credentials);
 
 submissionController.getSubmission = async (req, res) => {
     try {
@@ -120,7 +120,7 @@ submissionController.createSubmission = async (req, res) => {
 
         sns.publish(snsParams, (err, data) => {
             if (err) {
-                console.error('Error publishing to SNS:', err);
+                logger.error('Error publishing to SNS:', err);
             } else {
                 logger.info('Submission URL sent to SNS successfully:', data);
             }
@@ -129,9 +129,6 @@ submissionController.createSubmission = async (req, res) => {
 
         validation.created(res, "Submission created", newSubmission)
         logger.info(`Submission created with id: ${newSubmission.id}`);
-
-       
-
 
         // res.status(201).json(newAssignment);
     } catch (error) {

@@ -18,7 +18,9 @@ sudo chmod -R 750  /opt/webappuser/webapp
 echo "display permissions of user directory"
 ls -la /opt/webappuser
 
-# sudo -u webappuser bash
+sudo -u webappuser bash
+aws configure --profile demo
+
 # cd webapp
 
 

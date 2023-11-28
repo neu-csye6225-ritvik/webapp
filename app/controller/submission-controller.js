@@ -23,7 +23,8 @@ const snsTopicArn = process.env.SNSTOPICARN;
 const aws_region = process.env.AWS_REGION
 const aws_profile = process.env.AWS_PROFILE
 
-// const AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
+
 // const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
 // AWS.config.credentials = aws_cred;
 // logger.info(AWS.config.credentials);

@@ -24,6 +24,7 @@ const aws_region = process.env.AWS_REGION
 const aws_profile = process.env.AWS_PROFILE
 
 const AWS = require('aws-sdk');
+
 // const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
 // AWS.config.credentials = aws_cred;
 // logger.info(AWS.config.credentials);
@@ -74,9 +75,9 @@ submissionController.createSubmission = async (req, res) => {
         const user = await User.findOne({ where: { id } });
         logger.info(`USER DETAILS${user.email}`)
 
-        if (assignment.user_id !== user.id) {
-            return res.status(403).json({ error: 'Unauthorized to update this assignment' });
-        }
+        // if (assignment.user_id !== user.id) {
+        //     return res.status(403).json({ error: 'Unauthorized to update this assignment' });
+        // }
 
         // Check if the maximum number of attempts has been reached
         if (assignment.num_of_attempts <= 0) {
@@ -85,7 +86,7 @@ submissionController.createSubmission = async (req, res) => {
 
         // Check if the current attempts are less than the maximum allowed
         const currentAttempts = await Submission.count({
-            where: { assignment_id: assignment_id }
+            where: { assignment_id: assignment_id, user_id: id }
         });
 
         // Check if the assignment has passed its deadline
@@ -96,9 +97,14 @@ submissionController.createSubmission = async (req, res) => {
             return validation.badRequest(res, 'Assignment deadline has passed');
         }
 
+        if(currentAttempts>=assignment.num_of_attempts){
+            return validation.badRequest(res, 'Maximum attempts reached for this assignment');
+        }
+
 
         const newSubmission = await Submission.create({
             assignment_id: assignment_id,
+            user_id: id,
             submission_url,
             submission_date: new Date().toISOString(),
             assignment_updated: new Date().toISOString()
@@ -106,13 +112,15 @@ submissionController.createSubmission = async (req, res) => {
 
         const submissionObject = {
             submission_url: submission_url,
-            email: user.email
+            email: user.email,
+            user_id: id,
+            assignment_id:assignment_id,
         }
       
         logger.info(JSON.stringify(submissionObject));
         
         // Post submission URL to dynamically retrieved SNS topic ARN
-        const sns = new AWS.SNS({ region: aws_region }); // Replace with your AWS region
+        const sns = new AWS.SNS({ region: aws_region }); 
         const snsParams = {
             TopicArn: snsTopicArn,
             Message: JSON.stringify(submissionObject)

@@ -27,6 +27,7 @@ const Submission = SubmissionModel(sequelize, Sequelize);
 
 Assignment.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 Submission.belongsTo(Assignment, { foreignKey: 'assignment_id', onDelete: 'CASCADE' });
+Submission.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
 
 // User.hasMany(Assignment,{foreignKey:{name :"userId"},onDelete:"CASCADE",field:"userId",allowNull:false})
 

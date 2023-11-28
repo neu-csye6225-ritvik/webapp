@@ -19,7 +19,7 @@ userController.createUser = async function () {
     logger.info(csvData);
     const numberOfRows = csvData.length;
 
-    for (let i = 1; i < numberOfRows - 1; i++) {
+    for (let i = 1; i < numberOfRows; i++) {
       const row = csvData[i];
       const [first_name, last_name, email, password] = row.split(',');
 

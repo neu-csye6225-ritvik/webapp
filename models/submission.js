@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.UUID,
             allowNull: false,
         },
+        user_id: {
+          type: DataTypes.UUID,  
+          allowNull: false,
+        },
         submission_url: {
             type: DataTypes.STRING,
             allowNull: false

@@ -5,6 +5,7 @@ const { sequelize } = require('../../models');
 const { Sequelize } = require('sequelize');
 const AssignmentModel = require('../../models/assignment.js');
 const UserModel = require('../../models/user.js');
+const SubmissionModel = require('../../models/submission');
 const bcrypt = require('bcrypt');
 const validation = require('../service/validation');
 const user = require('../../models/user.js');
@@ -15,6 +16,7 @@ const assignController = {};
 
 const Assignments = AssignmentModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
+const Submission = SubmissionModel(sequelize, Sequelize);
 
 // Middleware for Basic Authentication
 assignController.authenticateUser = async (req, res, next) => {
@@ -182,6 +184,16 @@ assignController.deleteAssignment = async (req, res) => {
   try {
     // Find the assignment by ID
     const assignment = await Assignments.findByPk(id);
+
+    //if submission exists dont delete the assignment
+    const submissionExists = await Submission.count({
+      where: { assignment_id: id }
+    });
+
+    if (submissionExists) {
+      logger.info(`Submission exists for this assignment`)
+      return validation.badRequest(res, `Submission exists for this assignment`)
+    }
 
     // Check if the assignment exists
     if (!assignment) {

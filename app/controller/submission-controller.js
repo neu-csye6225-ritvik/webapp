@@ -24,11 +24,9 @@ const aws_region = process.env.AWS_REGION
 const aws_profile = process.env.AWS_PROFILE
 
 const AWS = require('aws-sdk');
-
 // const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
 // AWS.config.credentials = aws_cred;
 // logger.info(AWS.config.credentials);
-
 
 submissionController.getSubmission = async (req, res) => {
     try {
@@ -144,11 +142,10 @@ submissionController.createSubmission = async (req, res) => {
 
         // res.status(201).json(newAssignment);
     } catch (error) {
-        validation.badRequest(res, 'Failed to create submission')
+        validation.badRequest(res, 'Failed to create a submission')
         logger.info(`Failed to create submission`)
-        console.error('Failed to create submission', error);
-        // res.status(400).json({ error: 'Failed to create assignment' });
     }
 };
 
 module.exports = submissionController;
+

@@ -158,6 +158,18 @@ assignController.updateAssignment = async (req, res) => {
       return res.status(403).json({ error: 'Unauthorized to update this assignment' });
     }
 
+
+    //if submission exists dont update the assignment
+    const submissionExists = await Submission.count({
+      where: { assignment_id: id }
+    });
+
+    if (submissionExists) {
+      logger.info(`Submission exists for this assignment`)
+      return validation.badRequest(res, `Cannot update as submission exists for this assignment`)
+    }
+
+
     // Update the assignment fields
     // Update assignment properties based on request body
     assignment.name = name || assignment.name;

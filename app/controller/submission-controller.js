@@ -29,6 +29,7 @@ const AWS = require('aws-sdk');
 // AWS.config.credentials = aws_cred;
 // logger.info(AWS.config.credentials);
 
+
 submissionController.getSubmission = async (req, res) => {
     try {
         const { id } = req.params;
@@ -101,6 +102,9 @@ submissionController.createSubmission = async (req, res) => {
             return validation.badRequest(res, 'Maximum attempts reached for this assignment');
         }
 
+        if(!validation.isValidURL(submission_url)){
+            return validation.badRequest(res, 'URL is invalid');
+        }
 
         const newSubmission = await Submission.create({
             assignment_id: assignment_id,

@@ -23,10 +23,10 @@ const snsTopicArn = process.env.SNSTOPICARN;
 const aws_region = process.env.AWS_REGION
 const aws_profile = process.env.AWS_PROFILE
 
-// const AWS = require('aws-sdk');
-// const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
-// AWS.config.credentials = aws_cred;
-// logger.info(AWS.config.credentials);
+const AWS = require('aws-sdk');
+const aws_cred = new AWS.SharedIniFileCredentials({ profile: aws_profile });
+AWS.config.credentials = aws_cred;
+logger.info(AWS.config.credentials);
 
 submissionController.getSubmission = async (req, res) => {
     try {
@@ -100,6 +100,10 @@ submissionController.createSubmission = async (req, res) => {
             return validation.badRequest(res, 'Maximum attempts reached for this assignment');
         }
 
+        if(!validation.isValidURL(submission_url)){
+            return validation.badRequest(res, 'URL is invalid');
+        }
+
 
         const newSubmission = await Submission.create({
             assignment_id: assignment_id,
@@ -147,3 +151,4 @@ submissionController.createSubmission = async (req, res) => {
 };
 
 module.exports = submissionController;
+

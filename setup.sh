@@ -117,4 +117,3 @@ sudo systemctl enable amazon-cloudwatch-agent
 sudo systemctl start amazon-cloudwatch-agent
 
 
-# ./google-cloud-sdk/bin/gcloud init

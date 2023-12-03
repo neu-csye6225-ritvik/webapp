@@ -87,18 +87,52 @@ jobs:
     #     export LAUNCH_TEMPLATE_VERSION=$(cat version.txt)
     #     echo "LAUNCH_TEMPLATE_VERSION=$LAUNCH_TEMPLATE_VERSION" >> $GITHUB_ENV
         
-    - name: Update Launch Template
-      run: |
-        AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
-        echo AMI_ID used: $AMI_ID
-        aws ec2 create-launch-template-version --no-cli-pager \
-        --launch-template-data '{"ImageId":"$AMI_ID"}' \
-        --source-version 1
-        --launch-template-name "ec2launchTemp-fcec096"
+    # - name: Update Launch Template
+    #   run: |
+    #     AMI_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+    #     echo AMI_ID used: $AMI_ID
+    #     aws ec2 create-launch-template-version --no-cli-pager \
+    #     --launch-template-data '{"ImageId":"$AMI_ID"}' \
+    #     --source-version 1
+    #     --launch-template-name "ec2launchTemp-fcec096"
 
-    - name: autoscaling group instance refresh
+    # - name: autoscaling group instance refresh
+    #   run: |
+    #     aws autoscaling start-instance-refresh \
+    #     --auto-scaling-group-name="asg_launch_config_ami" \
+    #     --preferences '{"MinHealthyPercentage": 100}' \
+    #     --strategy=Rolling --no-cli-pager
+
+    - name: launch and update asg
       run: |
+        IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
+        echo IMAGE_ID used: $IMAGE_ID
+        ASG_NAME="asg_launch_config_ami"
+        LAUNCH_CONFIG="ec2launchTemp-fcec096"
+        aws ec2 create-launch-template-version \
+            --launch-template-name "$LAUNCH_CONFIG" \
+            --version-description updateAMI --source-version 1 \
+            --launch-template-data="$IMAGE_ID"
+        TEMPLATE_VERSION=$(aws ec2 describe-launch-template-versions --launch-template-name="$LAUNCH_CONFIG" \
+          --filters="Name=is-default-version,Values=false" \
+          --query 'sort_by(LaunchTemplateVersions, &CreateTime)[-1].[VersionNumber]' --output text)
+        aws autoscaling update-auto-scaling-group --auto-scaling-group-name $ASG_NAME \
+          --launch-template LaunchTemplateName="$LAUNCH_CONFIG",Version=$TEMPLATE_VERSION
         aws autoscaling start-instance-refresh \
-        --auto-scaling-group-name="asg_launch_config_ami" \
-        --preferences '{"MinHealthyPercentage": 100}' \
-        --strategy=Rolling --no-cli-pager
+          --auto-scaling-group-name $ASG_NAME --strategy Rolling
+        printf "Instance refresh in progress"
+        while true;
+        do
+          instance_refresh_status=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name $ASG_NAME \
+            --query "InstanceRefreshes[0].Status" --output text)
+          if [ "$instance_refresh_status" = "Successful" ]; then
+            printf "\nInstance refresh successful!"
+            break
+          fi
+          if [ "$instance_refresh_status" = "Cancelling" ] || [ "$instance_refresh_status" = "Cancelled" ] || [ "$instance_refresh_status" = "Failed" ]; then
+            printf "\nInstance refresh failed!"
+            exit 1
+          fi
+          echo -ne "."
+          sleep 10
+        done

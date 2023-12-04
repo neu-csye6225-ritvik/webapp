@@ -107,8 +107,8 @@ jobs:
       run: |
         IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
         echo IMAGE_ID used: $IMAGE_ID
-        ASG_NAME="asg_launch_config_ami"
-        LAUNCH_CONFIG="ec2launchTemp-fcec096"
+        ASG_NAME=${{ vars.ASG_NAME }}
+        LAUNCH_CONFIG=${{ vars.LAUNCH_TEMPLATE_NAME }}
         aws ec2 create-launch-template-version \
             --launch-template-name "$LAUNCH_CONFIG" \
             --version-description updateAMI --source-version 1 \

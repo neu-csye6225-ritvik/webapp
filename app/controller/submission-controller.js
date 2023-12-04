@@ -105,7 +105,6 @@ submissionController.createSubmission = async (req, res) => {
         }
 
 
-
         const newSubmission = await Submission.create({
             assignment_id: assignment_id,
             user_id: id,

@@ -104,6 +104,8 @@ submissionController.createSubmission = async (req, res) => {
             return validation.badRequest(res, 'URL is invalid');
         }
 
+
+
         const newSubmission = await Submission.create({
             assignment_id: assignment_id,
             user_id: id,

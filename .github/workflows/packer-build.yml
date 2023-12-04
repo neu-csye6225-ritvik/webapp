@@ -112,7 +112,7 @@ jobs:
         aws ec2 create-launch-template-version \
             --launch-template-name "$LAUNCH_CONFIG" \
             --version-description updateAMI --source-version 1 \
-            --launch-template-data '{"ImageId":"$IMAGE_ID"}'
+            --launch-template-data "ImageId=$IMAGE_ID"
         TEMPLATE_VERSION=$(aws ec2 describe-launch-template-versions --launch-template-name="$LAUNCH_CONFIG" \
           --filters="Name=is-default-version,Values=false" \
           --query 'sort_by(LaunchTemplateVersions, &CreateTime)[-1].[VersionNumber]' --output text)

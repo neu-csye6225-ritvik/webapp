@@ -6,9 +6,9 @@ const submissionRouter = require('./submission-route.js');
 const route = (app) => {
     app.use('/v2/healthz', healthRouter);
 
-    app.use('/v1/assignments', assignRouter)
+    app.use('/v2/assignments', assignRouter)
 
-    app.use('/v1/assignments', submissionRouter)
+    app.use('/v2/assignments', submissionRouter)
 
     app.all('*', (req, res) => {
         if (req.method === 'PATCH') {

@@ -69,11 +69,11 @@ jobs:
     - name: Run packer init
       run: packer init aws.debian.pkr.hcl
     
-    # - name: Run `packer Build`
-    #   id: packer_build
-    #   run: |
-    #     echo "Running packer build"
-    #     packer build aws.debian.pkr.hcl
+    - name: Run `packer Build`
+      id: packer_build
+      run: |
+        echo "Running packer build"
+        packer build aws.debian.pkr.hcl
 
     # - name: Fetch Latest launch template version
     #   run: |
@@ -105,7 +105,7 @@ jobs:
 
     - name: launch and update asg
       run: |
-        IMAGE_ID="ami-0ceff87ddd062be0e"
+        IMAGE_ID=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d ":" -f2)
         echo IMAGE_ID used: $IMAGE_ID
         ASG_NAME="asg_launch_config_ami"
         LAUNCH_CONFIG="ec2launchTemp-fcec096"

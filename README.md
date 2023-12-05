@@ -96,3 +96,6 @@ packer build aws.debian.pkr.hcl
 ## PULUMI Code 
 pulumi stack select
 pulumi up 
+
+aws acm import-certificate --certificate file://Certificate.pem --certificate-chain file://CertificateChain.pem --private-key file://PrivateKey.pem --profile demo
+ 

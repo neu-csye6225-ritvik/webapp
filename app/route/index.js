@@ -4,7 +4,7 @@ const assignRouter = require('./assign-route.js');
 const submissionRouter = require('./submission-route.js');
 
 const route = (app) => {
-    app.use('/v2/healthz', healthRouter);
+    app.use('/healthz', healthRouter);
 
     app.use('/v2/assignments', assignRouter)
 

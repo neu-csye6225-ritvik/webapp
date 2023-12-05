@@ -6,7 +6,7 @@ var assert = require('assert');
 
 describe('Testing our Application', function () {
 
-    it('GET /healthz end point of the application', (done) => {
+    it('GET /healthz end point of the application to test sequelize', (done) => {
         supertest(app)
             .get('/v2/healthz')
             .expect(200)

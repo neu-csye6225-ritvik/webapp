@@ -7,7 +7,7 @@
 4. Connected to PostgreSQL, passwords stored Bcrypt
 5. API testing - Postman, Documentation - Docee Swagger
 6. Nodejs- Backend
-7. Expussjs - Routing 
+7. Expressjs - Routing 
 8. Sequelize -ORM
 9. logger- logging
 10. statsd - Metrics 

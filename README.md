@@ -1,102 +1,102 @@
-# webapp
+```markdown
+# Web Application - Student Management System
 
-## Built Rest APIs for Student management
-1. Student creation on app load
-2. Authentication using basic Auth on all endpoints
-3. CRUD on Assignments
-4. Connected to PostgreSQL, passwords stored Bcrypt
-5. API testing - Postman, Documentation - Docee Swagger
-6. Nodejs- Backend
-7. Expressjs - Routing 
-8. Sequelize -ORM
-9. logger- logging
-10. statsd - Metrics 
-11. dotenv - Configuration
-12. tests - mocha, supertest
+This repository contains a student management web application built using Node.js, Express.js, and PostgreSQL.
 
-## Github for version Control
-1. Organization account - forked repositories for feature updates
-2. Branch protection on push & pull - testing purpose
-3. Github actions for Integeation and Unit testing
-4. gitignore - avoid config files, passwords, .DS store
-5. Maintained secrets, variables for Configuration and Actions
+## Features
 
-## Linux commands environment (Debian) - Virtualization
-1. Install require softwore nodejs, npm, PostgreSQL
-2. Setup users to with access to application, root access to application is disabled
-3. SystemD for autorun, restart on failure, cloudinit
-
-## Раскеr
-1. Private AMIs for application enabling ec2 through infrastructure
-2. Debian VMs built in Aws account with shared access
-3. Packer fmt & validate for unit testing  and Github actions - Packer Build for integration testing
-4. SSH-Username, ami-name, instance type, soura-ami-filter build, provisioner -filestell, pre-processors. zip
-
-
-
-## Prerequisites softwares and libraries
-- Postgres DB
-- NodeJS (Version 16.17)
-- Sequelize (3rd party package for ORM in Node)
-- bcryptjs
-- express
-- mocha
-- pg
-- pg-hstore
-- sequelize
-- supertest
-## Steps to deploy it locally.
-- clone fork repo:  `git clone git@github.com:ritvikneu/webapp.git`
-
-- run  `npm install` to install packages
-
-- Once  node_modules is installed. create a .env file and add db details and port details.
--   `DB_HOSTNAME = localhost`
--   `DB_PASSWORD = 1234`
--   `DB_USER = postgres`
--   `DB_NAME = postgres`
--   `DB_DIALECT = postgres`
--   `DB_PORT = 5432`
--   `APP_PORT = 7799`
--    Before running a application make sure there 
-- since node_modules contains nodemon as well. we can run the server two ways:  `npx nodemon` or `npm start`
+- **Student Management:**
+    - Create, read, update, and delete student records.
+    - Authentication using Basic Auth on all endpoints.
+- **Assignment Management:**
+    - Create, read, update, and delete assignments.
+- **Database:**
+    - PostgreSQL database to store student and assignment data.
+    - Password storage using bcryptjs for security.
+- **Testing and Documentation:**
+    - API testing using Postman.
+    - API documentation generated using Doccee Swagger.
+- **Development Tools and Practices:**
+    - Node.js - Backend development.
+    - Express.js - Routing and handling API requests.
+    - Sequelize - ORM for database interactions.
+    - Logging with a logger library.
+    - Metrics collection using statsd.
+    - Configuration using dotenv.
+    - Unit testing with mocha and supertest.
+- **Version Control:**
+    - GitHub for version control and collaboration.
+    - Organization account for forked repositories for feature updates.
+    - Branch protection for testing purposes.
+    - GitHub Actions for integration and unit testing.
+    - gitignore to exclude configuration files, passwords, and temporary files.
+    - Secrets and variables maintained for configuration and actions.
+- **Virtualization and Automation:**
+    - Linux environment (Debian) setup for deployment.
+    - Installation of necessary software: Node.js, npm, PostgreSQL.
+    - User management for restricted access to the application.
+    - SystemD for automatic startup and restart on failure.
+    - Packer for building AMIs and automating infrastructure deployment.
 
 
-## Application Testing
-run `npm test` : this runs test on integration-test.js
+```
 
+## Installation and Setup
 
-## Prerequisites softwares and libraries
-- Postgres DB
-- NodeJS (Version 16.17)
-- Sequelize (3rd party package for ORM in Node)
-- bcryptjs
-- express
-- mocha
-- pg
-- pg-hstore
-- sequelize
-- supertest
-## Steps to deploy it locally.
-- clone fork repo:  `git clone git@github.com:ritvikneu/webapp.git`
+1. **Clone the repository:**
+   ```bash
+   git clone git@github.com:ritvikneu/webapp.git
+   cd webapp
+   ```
 
-- run  `npm install` to install packages
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-## Deploy 
+3. **Create a `.env` file:**
+   ```bash
+   touch .env
+   ```
 
-## Application Testing
-run `npm test` : this runs test on integration-test.js
+4. **Add environment variables:**
+   ```
+   DB_HOSTNAME=localhost
+   DB_PASSWORD=1234
+   DB_USER=postgres
+   DB_NAME=postgres
+   DB_DIALECT=postgres
+   DB_PORT=5432
+   APP_PORT=7799
+   ```
 
+5. **Start the application:**
+   ```bash
+   npm start
+   ```
 
-## PACKER Setup
-packer fmt aws.debian.pkr.hcl
-packer validate aws.debian.pkr.hcl
-packer build aws.debian.pkr.hcl
+## Testing
 
-# Packer Build on PR Merge
+To run tests:
 
-This workflow automates the process of building an AMI using Packer on every push to the `main` branch.
+```bash
+npm test
+```
 
+This will run both integration and unit tests.
+
+## Packer Setup
+
+1. **Format and validate the Packer configuration file:**
+   ```bash
+   packer fmt aws.debian.pkr.hcl
+   packer validate aws.debian.pkr.hcl
+   ```
+
+2. **Build the AMI:**
+   ```bash
+   packer build aws.debian.pkr.hcl
+   ```
 ## Steps for Packer build - aws.debian.pkr.hcl
 
 1. **Checkout code:**  The workflow starts by checking out the code from the repository.
@@ -141,10 +141,3 @@ This workflow is triggered on every push to the `main` branch.
 
 - **Secret Storage:** Sensitive information like AWS credentials, database credentials, and other environment variables should be stored securely as secrets in your repository.
 - **IAM Permissions:** Ensure that the workflow has the necessary IAM permissions to build AMIs, interact with AWS resources, and access secrets.
-
-## Notes
-
-- You may need to adjust the Packer configuration file (`aws.debian.pkr.hcl`) and the workflow steps to suit your specific needs and environment.
-- Ensure that the Packer build process is tested thoroughly to verify that the AMI is correctly built and meets your requirements.
-
- 

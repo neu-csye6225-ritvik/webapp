@@ -93,9 +93,58 @@ packer fmt aws.debian.pkr.hcl
 packer validate aws.debian.pkr.hcl
 packer build aws.debian.pkr.hcl
 
-## PULUMI Code 
-pulumi stack select
-pulumi up 
+# Packer Build on PR Merge
 
-aws acm import-certificate --certificate file://Certificate.pem --certificate-chain file://CertificateChain.pem --private-key file://PrivateKey.pem --profile demo
+This workflow automates the process of building an AMI using Packer on every push to the `main` branch.
+
+## Steps for Packer build - aws.debian.pkr.hcl
+
+1. **Checkout code:**  The workflow starts by checking out the code from the repository.
+2. **Set up environment variables:**  
+   - Environment variables are defined in a `.env` file to ensure sensitive data is not stored directly in the workflow file.
+   - These include:
+     - **NODE_ENV:** The environment the application will run in.
+     - **DB_NAME:** The name of the database.
+     - **DB_USER:** The username for the database.
+     - **DB_PASSWORD:** The password for the database.
+     - **DB_PORT:** The port of the database.
+     - **DB_HOST:** The hostname of the database server.
+     - **DB_DIALECT:** The dialect of the database.
+     - **APP_PORT:** The port the application will run on.
+     - **AWS_REGION:** The AWS region where the AMI will be built.
+     - **PROFILE:** The AWS profile to use.
+     - **AMI_DESCRIPTION:** A description for the built AMI.
+     - **INSTANCE_TYPE:** The type of EC2 instance to use for building the AMI.
+     - **AMI_SOURCE_NAME:** The name of the source volume.
+     - **AMI_SOURCE_DEVICE_TYPE:** The type of device for the source volume (e.g., "ebs").
+     - **AMI_SOURCE_VIRTUALIZATION:** The virtualization type of the source volume (e.g., "hvm").
+     - **DEVICE_NAME:** The name of the device to attach the source volume to.
+     - **VOLUME_SIZE:** The size of the volume in GB.
+     - **VOLUME_TYPE:** The type of volume (e.g., "gp2").
+
+3. **Zip Web App:** The web app is zipped up for inclusion in the AMI. 
+4. **Set up Packer:** The Packer binary is downloaded and installed.
+5. **Configure AWS Credentials:** AWS credentials are configured using secrets from the repository.
+6. **Run `packer init`:** The Packer configuration file is initialized.
+7. **Run `packer build`:** The Packer build process is executed, creating the AMI. 
+8. **Launch and Update Auto Scaling Group:** The script updates the Auto Scaling Group to use the newly built AMI:
+   - Gets the AMI ID from the Packer output.
+   - Creates a new launch template version with the updated AMI.
+   - Updates the Auto Scaling Group to use the new launch template version.
+   - Starts an instance refresh process, allowing the instances to be replaced with new ones based on the updated launch template.
+
+## Triggering the Workflow
+
+This workflow is triggered on every push to the `main` branch.
+
+## Security Considerations
+
+- **Secret Storage:** Sensitive information like AWS credentials, database credentials, and other environment variables should be stored securely as secrets in your repository.
+- **IAM Permissions:** Ensure that the workflow has the necessary IAM permissions to build AMIs, interact with AWS resources, and access secrets.
+
+## Notes
+
+- You may need to adjust the Packer configuration file (`aws.debian.pkr.hcl`) and the workflow steps to suit your specific needs and environment.
+- Ensure that the Packer build process is tested thoroughly to verify that the AMI is correctly built and meets your requirements.
+
  
